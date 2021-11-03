@@ -38,6 +38,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.ui.theme.BottomBarColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
+import com.chs.coutubemusic.view.ExploreScreen
+import com.chs.coutubemusic.view.HomeScreen
+import com.chs.coutubemusic.view.LibraryScreen
 import java.nio.file.Files.size
 
 class MainActivity : ComponentActivity() {
@@ -162,35 +165,11 @@ fun BottomNavigationBar(
 }
 
 
-@Composable
-fun HomeScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Home Screen")
-    }
-}
 
-@Composable
-fun ExploreScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Explore Screen")
-    }
-}
 
-@Composable
-fun LibraryScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Library Screen")
-    }
-}
+
+
+
 
 @Preview(showBackground = true)
 @Composable
