@@ -1,28 +1,20 @@
 package com.chs.coutubemusic
 
 import android.os.Bundle
-import android.widget.ImageButton
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.twotone.PlayArrow
 import androidx.compose.material.icons.twotone.Search
 import androidx.compose.material.icons.twotone.Share
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -41,7 +33,6 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 import com.chs.coutubemusic.view.ExploreScreen
 import com.chs.coutubemusic.view.HomeScreen
 import com.chs.coutubemusic.view.LibraryScreen
-import java.nio.file.Files.size
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +69,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                ) {
+                ) { innerPadding ->
                     Navigation(navController = navController)
                 }
             }
