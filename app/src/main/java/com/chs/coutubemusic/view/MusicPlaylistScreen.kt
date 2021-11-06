@@ -1,8 +1,11 @@
 package com.chs.coutubemusic.view
 
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,14 +20,25 @@ import com.chs.coutubemusic.model.Music
 
 @Composable
 fun MusicPlaylistScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize()
+    val music: Music = Music(
+        "RAINING IN PARIS (Lofi HipHop)",
+        "",
+        "차현석",
+        "18:38"
+    )
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
     ) {
-        PlayListInfo(
-            title = "Lofi_HipHop",
-            author = "차현석",
-            listSize = "59")
-        VerticalMusicList()
+        item {
+            PlayListInfo(
+                title = "Lofi_HipHop",
+                author = "차현석",
+                listSize = "59")
+        }
+        items(count = 30) {
+            MusicListItem(music = music)
+        }
     }
 }
 
@@ -77,22 +91,6 @@ fun PlayListInfo(
     }
 }
 
-
-@Composable
-fun VerticalMusicList() {
-    val music: Music = Music(
-        "RAINING IN PARIS (Lofi HipHop)",
-        "",
-        "차현석",
-        "18:38"
-    )
-    LazyColumn {
-        items(count = 30) {
-            MusicListItem(music = music)
-        }
-    }
-}
-
 @Composable
 fun MusicListItem(music: Music) {
     Row(
@@ -127,20 +125,5 @@ fun MusicListItem(music: Music) {
         
         IconButton(onClick = { /*TODO*/ }) {
         }
-    }
-}
-
-
-@Preview
-@Composable
-fun preview() {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        PlayListInfo(
-            title = "Lofi_HipHop",
-            author = "차현석",
-            listSize = "59")
-        VerticalMusicList()
     }
 }

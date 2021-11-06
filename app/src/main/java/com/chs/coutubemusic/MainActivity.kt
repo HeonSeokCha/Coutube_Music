@@ -24,22 +24,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.chs.coutubemusic.navigation.SetUpNavGraph
 import com.chs.coutubemusic.ui.theme.BottomBarColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
-import com.chs.coutubemusic.view.ExploreScreen
-import com.chs.coutubemusic.view.HomeScreen
-import com.chs.coutubemusic.view.LibraryScreen
 
 class MainActivity : ComponentActivity() {
+    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CoutubeMusicTheme {
-                val navController = rememberNavController()
+                navController = rememberNavController()
                 Scaffold(
                     topBar = {
                         Appbar()
@@ -65,12 +62,22 @@ class MainActivity : ComponentActivity() {
                             ),
                             navController = navController,
                             onItemClick = {
-                                navController.navigate(it.route)
+                                Log.e("Route", it.route)
+                                Log.e("Route2", navController.currentDestination?.route.toString())
+                                Log.e("Route3",
+                                    (it.route != navController.currentDestination?.route).toString()
+                                )
+                                if (it.route != navController.currentDestination?.route) {
+                                    navController.navigate(it.route)
+                                }
                             }
                         )
                     }
-                ) { innerPadding ->
-                    Navigation(navController = navController)
+                ) {
+                    SetUpNavGraph(
+                        bottomNavController = navController,
+                        it
+                    )
                 }
             }
         }
@@ -100,21 +107,6 @@ fun Appbar() {
                     )
                 }
             })
-    }
-}
-
-@Composable
-fun Navigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
-            HomeScreen()
-        }
-        composable("explore") {
-            ExploreScreen()
-        }
-        composable("library") {
-            LibraryScreen()
-        }
     }
 }
 
