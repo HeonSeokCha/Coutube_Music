@@ -1,7 +1,6 @@
 package com.chs.coutubemusic
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -62,13 +61,11 @@ class MainActivity : ComponentActivity() {
                             ),
                             navController = navController,
                             onItemClick = {
-                                Log.e("Route", it.route)
-                                Log.e("Route2", navController.currentDestination?.route.toString())
-                                Log.e("Route3",
-                                    (it.route != navController.currentDestination?.route).toString()
-                                )
                                 if (it.route != navController.currentDestination?.route) {
-                                    navController.navigate(it.route)
+                                    navController.navigate(it.route) {
+                                        popUpTo(0)
+                                        launchSingleTop = true
+                                    }
                                 }
                             }
                         )
@@ -87,10 +84,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Appbar() {
     Column {
-        TopAppBar(title = {
-            Icon(imageVector = Icons.TwoTone.PlayArrow, contentDescription = null)
-            Text(text = "Music")
-        },
+        TopAppBar(
+            title = {
+                Icon(imageVector = Icons.TwoTone.PlayArrow, contentDescription = null)
+                Text(text = "Music")
+            },
             actions = {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(imageVector = Icons.TwoTone.Share, contentDescription = null)
@@ -106,7 +104,8 @@ fun Appbar() {
                         contentDescription = null,
                     )
                 }
-            })
+            }
+        )
     }
 }
 
@@ -146,12 +145,6 @@ fun BottomNavigationBar(
         }
     }
 }
-
-
-
-
-
-
 
 
 @Preview(showBackground = true)
