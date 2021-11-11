@@ -1,14 +1,15 @@
 package com.chs.coutubemusic.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -21,7 +22,11 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 @Composable
 fun MusicPLayerScreen() {
     Column {
-
+        MusicPlayerImage()
+        Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+        MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
+        Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+        MusicPlayerControl()
     }
 }
 
@@ -34,11 +39,17 @@ fun MusicPlayerAppBar() {
 fun MusicPlayerImage() {
     Box(
         Modifier
-            .width(300.dp)
-            .height(200.dp)
-            .padding(start = 16.dp, end = 16.dp)
-            .background(Color.Cyan)
-    )
+            .fillMaxWidth()
+            .height(300.dp)
+            .padding(start = 24.dp, end = 24.dp)
+            .clip(RoundedCornerShape(15f))
+    ) {
+        Image(painterResource(
+            id = R.drawable.test),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }
 
 @Composable
@@ -57,7 +68,8 @@ fun MusicPlayerTitle(
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_thumb_down),
-                    contentDescription = null
+                    contentDescription = null,
+                    Modifier.size(16.dp)
                 )
             }
 
@@ -65,13 +77,14 @@ fun MusicPlayerTitle(
                 modifier = Modifier.width(250.dp),
                 text = title,
                 fontSize = 20.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_thumb_up),
-                    contentDescription = null
+                    contentDescription = null,
+                    Modifier.size(16.dp)
                 )
             }
         }
@@ -87,9 +100,76 @@ fun MusicPlayerTitle(
 
 @Composable
 fun MusicPlayerControl() {
-    Row {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .wrapContentHeight()
+        .padding(start = 24.dp, end = 24.dp)) {
+        LinearProgressIndicator(
+            modifier = Modifier.fillMaxWidth(),
+            color = Color.LightGray
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Bottom
+        ) {
+           Text(
+               text = "0:00",
+               fontSize = 12.sp,
+               color = Color.LightGray
+           )
 
+            Text(
+                text = "4:39",
+                fontSize = 12.sp,
+                color = Color.LightGray
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(start = 8.dp, end = 8.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_play_shuffle),
+                    contentDescription = null
+                )
+            }
+
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_play_previous),
+                    contentDescription = null
+                )
+            }
+
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_play),
+                    contentDescription = null
+                )
+            }
+
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_play_next),
+                    contentDescription = null
+                )
+            }
+
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_repeat),
+                    contentDescription = null
+                )
+            }
+        }
     }
+
 }
 
 
@@ -97,6 +177,12 @@ fun MusicPlayerControl() {
 @Composable
 private fun PreviewScreen() {
     CoutubeMusicTheme {
-        MusicPlayerTitle("Plenty original", "LowFidelity Lounge")
+        Column {
+            MusicPlayerImage()
+            Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+            MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
+            Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+            MusicPlayerControl()
+        }
     }
 }

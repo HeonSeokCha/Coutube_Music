@@ -1,5 +1,6 @@
 package com.chs.coutubemusic.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,10 +17,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.model.Music
 
 @Composable
-fun MusicPlaylistScreen() {
+fun MusicPlaylistScreen(navController: NavHostController) {
     val music: Music = Music(
         "RAINING IN PARIS (Lofi HipHop)",
         "",
@@ -37,7 +42,7 @@ fun MusicPlaylistScreen() {
                 listSize = "59")
         }
         items(count = 30) {
-            MusicListItem(music = music)
+            MusicListItem(music = music, navController = navController)
         }
     }
 }
@@ -92,12 +97,15 @@ fun PlayListInfo(
 }
 
 @Composable
-fun MusicListItem(music: Music) {
+fun MusicListItem(music: Music, navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(top = 8.dp, bottom = 8.dp)
+            .clickable {
+                navController.navigate(route = Screen.MusicPlayerScreen.route)
+            }
     ) {
         Box(
             modifier = Modifier

@@ -9,10 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.chs.coutubemusic.Screen
-import com.chs.coutubemusic.view.ExploreScreen
-import com.chs.coutubemusic.view.HomeScreen
-import com.chs.coutubemusic.view.LibraryScreen
-import com.chs.coutubemusic.view.MusicPlaylistScreen
+import com.chs.coutubemusic.view.*
 
 @Composable
 fun SetUpNavGraph(
@@ -35,7 +32,11 @@ fun SetUpNavGraph(
             LibraryScreen()
         }
         composable(Screen.MusicPlayerList.route) {
-            MusicPlaylistScreen()
+            MusicPlaylistScreen(bottomNavController)
+        }
+
+        composable(Screen.MusicPlayerScreen.route) {
+            MusicPLayerScreen()
         }
     }
 }
