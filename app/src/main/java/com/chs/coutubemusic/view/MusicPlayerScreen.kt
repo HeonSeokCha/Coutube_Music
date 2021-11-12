@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -17,15 +18,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chs.coutubemusic.R
+import com.chs.coutubemusic.ui.theme.ChipDisableColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
 @Composable
 fun MusicPLayerScreen() {
     Column {
         MusicPlayerImage()
-        Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
         MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
-        Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
         MusicPlayerControl()
     }
 }
@@ -44,8 +46,10 @@ fun MusicPlayerImage() {
             .padding(start = 24.dp, end = 24.dp)
             .clip(RoundedCornerShape(15f))
     ) {
-        Image(painterResource(
-            id = R.drawable.test),
+        Image(
+            painterResource(
+                id = R.drawable.test
+            ),
             contentDescription = null,
             modifier = Modifier.fillMaxSize()
         )
@@ -69,7 +73,6 @@ fun MusicPlayerTitle(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_thumb_down),
                     contentDescription = null,
-                    Modifier.size(16.dp)
                 )
             }
 
@@ -84,7 +87,6 @@ fun MusicPlayerTitle(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_thumb_up),
                     contentDescription = null,
-                    Modifier.size(16.dp)
                 )
             }
         }
@@ -100,24 +102,27 @@ fun MusicPlayerTitle(
 
 @Composable
 fun MusicPlayerControl() {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .wrapContentHeight()
-        .padding(start = 24.dp, end = 24.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(start = 24.dp, end = 24.dp)
+    ) {
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(),
-            color = Color.LightGray
+            color = Color.LightGray,
+            progress = 0f
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
         ) {
-           Text(
-               text = "0:00",
-               fontSize = 12.sp,
-               color = Color.LightGray
-           )
+            Text(
+                text = "0:00",
+                fontSize = 12.sp,
+                color = Color.LightGray
+            )
 
             Text(
                 text = "4:39",
@@ -131,40 +136,54 @@ fun MusicPlayerControl() {
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(start = 8.dp, end = 8.dp),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_play_shuffle),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
                 )
             }
 
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_play_previous),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
                 )
             }
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(
+                onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .size(64.dp)
+                    .background(
+                        shape = CircleShape,
+                        color = ChipDisableColor,
+                    )
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_play),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
                 )
             }
 
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_play_next),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
                 )
             }
 
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_repeat),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
                 )
             }
         }
@@ -177,11 +196,12 @@ fun MusicPlayerControl() {
 @Composable
 private fun PreviewScreen() {
     CoutubeMusicTheme {
-        Column {
+        Column(
+        ) {
             MusicPlayerImage()
-            Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
             MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
-            Spacer(modifier = Modifier.padding(top = 8.dp,bottom = 8.dp))
+            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
             MusicPlayerControl()
         }
     }

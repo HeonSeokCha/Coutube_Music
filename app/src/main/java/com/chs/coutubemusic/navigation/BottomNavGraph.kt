@@ -26,7 +26,7 @@ fun SetUpNavGraph(
             HomeScreen(bottomNavController)
         }
         composable(Screen.Explore.route) {
-            ExploreScreen()
+            ExploreScreen(bottomNavController)
         }
         composable(Screen.Library.route) {
             LibraryScreen()
