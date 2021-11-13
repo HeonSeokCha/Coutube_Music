@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,12 +25,17 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
 @Composable
 fun ExploreScreen(navController: NavHostController) {
+    val exploreTopItems: List<Pair<String, Painter>> = listOf(
+        "새 앨범" to painterResource(id = R.drawable.ic_new_album),
+        "차트" to painterResource(id = R.drawable.ic_chart),
+        "분위기 및 장르" to painterResource(id = R.drawable.ic_feel),
+    )
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         LazyColumn {
-            items(3) {
-                ExploreTopItem(title = "새 앨범", image = Icons.Default.PlayArrow)
+            items(3) { idx ->
+                ExploreTopItem(exploreTopItems[idx])
             }
             item {
                 Spacer(modifier = Modifier.padding(bottom = 16.dp))
@@ -42,21 +49,31 @@ fun ExploreScreen(navController: NavHostController) {
 }
 
 @Composable
-fun ExploreTopItem(title: String, image: ImageVector) {
+fun ExploreTopItem(item: Pair<String, Painter>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .wrapContentHeight()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(imageVector = image, contentDescription = null)
-        Text (
-            text = title,
+        Icon(painter = item.second,
+            contentDescription = null,
+        )
+        Text(
+            text = item.first,
             fontSize = 22.sp,
             color = Color.White,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp)
         )
-        Icon(painter = painterResource(id = R.drawable.ic_arrow_right), contentDescription = null)
+        Icon(
+            painter = painterResource(id = R.drawable.ic_arrow_right),
+            contentDescription = null,
+        )
     }
 
 }
@@ -65,6 +82,5 @@ fun ExploreTopItem(title: String, image: ImageVector) {
 @Composable
 fun testExplore() {
     CoutubeMusicTheme {
-        ExploreTopItem("새 얼범", image = Icons.Default.PlayArrow)
     }
 }

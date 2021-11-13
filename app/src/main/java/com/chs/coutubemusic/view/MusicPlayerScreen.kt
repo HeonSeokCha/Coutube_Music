@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,15 +44,16 @@ fun MusicPlayerImage() {
         Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .padding(start = 24.dp, end = 24.dp)
+            .padding(start = 32.dp, end = 32.dp)
             .clip(RoundedCornerShape(15f))
     ) {
         Image(
             painterResource(
-                id = R.drawable.test
+                id = R.drawable.test2
             ),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillHeight
         )
     }
 }
@@ -65,7 +67,7 @@ fun MusicPlayerTitle(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(start = 24.dp, end = 24.dp),
+            .padding(start = 32.dp, end = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row {
@@ -106,7 +108,7 @@ fun MusicPlayerControl() {
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(start = 24.dp, end = 24.dp)
+            .padding(start = 32.dp, end = 32.dp)
     ) {
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(),
@@ -196,13 +198,6 @@ fun MusicPlayerControl() {
 @Composable
 private fun PreviewScreen() {
     CoutubeMusicTheme {
-        Column(
-        ) {
-            MusicPlayerImage()
-            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
-            MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
-            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
-            MusicPlayerControl()
-        }
+        MusicPLayerScreen()
     }
 }

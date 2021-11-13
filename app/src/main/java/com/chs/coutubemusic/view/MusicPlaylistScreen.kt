@@ -1,12 +1,10 @@
 package com.chs.coutubemusic.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,14 +12,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.model.Music
+import com.chs.coutubemusic.R
 
 @Composable
 fun MusicPlaylistScreen(navController: NavHostController) {
@@ -58,11 +56,14 @@ fun PlayListInfo(
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        Box(
+        Image(
+            painterResource(id = R.drawable.test2),
+            contentDescription = null,
             modifier = Modifier
                 .width(200.dp)
                 .height(200.dp)
-                .clip(RoundedCornerShape(5.dp))
+                .clip(RoundedCornerShape(5.dp)),
+            contentScale = ContentScale.FillHeight
         )
         Column(
             modifier = Modifier
@@ -107,7 +108,9 @@ fun MusicListItem(music: Music, navController: NavHostController) {
                 navController.navigate(route = Screen.MusicPlayerScreen.route)
             }
     ) {
-        Box(
+        Image(
+            painter = painterResource(id = R.drawable.test2),
+            contentDescription = null,
             modifier = Modifier
                 .width(100.dp)
                 .height(50.dp)
@@ -120,14 +123,14 @@ fun MusicListItem(music: Music, navController: NavHostController) {
         ) {
             Text(
                 text = music.title,
-                fontSize = 18.sp,
+                fontSize = 14.sp,
                 color = Color.White
             )
 
             Text(
                 text = "${music.author}  ${music.length}",
-                fontSize = 14.sp,
-                color = Color.White
+                fontSize = 12.sp,
+                color = Color.Gray
             )
         }
         

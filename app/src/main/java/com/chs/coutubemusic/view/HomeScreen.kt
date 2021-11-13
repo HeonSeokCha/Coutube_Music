@@ -15,12 +15,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.chs.coutubemusic.R
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.ui.theme.ChipDisableColor
+import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
 @Composable
 fun HomeScreen(
@@ -142,39 +148,43 @@ fun HorizontalAlbum(
                 Card(
                     modifier = Modifier
                         .width(150.dp)
-                        .height(120.dp)
+                        .wrapContentHeight()
                         .padding(10.dp, 4.dp, 5.dp, 0.dp)
                         .clip(RoundedCornerShape(10.dp))
-                        .background(Color.Black)
                         .clickable {
                             navController.navigate(route = Screen.MusicPlayerList.route)
-                        },
-                    elevation = 5.dp
+                        }
                 ) {
                     Column(
-                        modifier = Modifier.padding(5.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                        modifier = Modifier.background(Color.Black),
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.Start
                     ) {
-                        Box(
+                        Image(
+                            painter = painterResource(id = R.drawable.test2),
+                            contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(80.dp),
-
+                                .height(120.dp)
+                                .clip(RoundedCornerShape(5f)),
+                            contentScale = ContentScale.FillHeight
                             )
-
 
                         Text(
                             text = "Lofi_HipHop",
                             color = Color.White,
+                            fontSize = 14.sp,
+                            modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)
                         )
 
                         Text(
                             text = "재생목록 , 차현석, 노래 59곡",
-                            color = Color.White,
+                            color = Color.Gray,
+                            fontSize = 11.sp,
                             modifier = Modifier
                                 .wrapContentHeight()
                                 .fillMaxWidth()
+                                .padding(start = 4.dp, end = 4.dp)
                         )
                     }
                 }
