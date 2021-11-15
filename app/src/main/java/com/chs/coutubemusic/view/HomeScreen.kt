@@ -36,6 +36,7 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
+            .background(Color.Black)
     ) {
         TopCategory(navController)
         VerticalAlbum(navController)
@@ -184,7 +185,7 @@ fun HorizontalAlbum(
                             modifier = Modifier
                                 .wrapContentHeight()
                                 .fillMaxWidth()
-                                .padding(start = 4.dp, end = 4.dp)
+                                .padding(start = 4.dp, end = 4.dp, bottom = 8.dp)
                         )
                     }
                 }

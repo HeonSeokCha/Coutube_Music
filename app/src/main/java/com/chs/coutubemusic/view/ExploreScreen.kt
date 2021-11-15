@@ -1,6 +1,7 @@
 package com.chs.coutubemusic.view
 
 import android.graphics.drawable.Icon
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -31,7 +32,9 @@ fun ExploreScreen(navController: NavHostController) {
         "분위기 및 장르" to painterResource(id = R.drawable.ic_feel),
     )
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
     ) {
         LazyColumn {
             items(3) { idx ->
