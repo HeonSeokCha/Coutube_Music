@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.ui.theme.ChipDisableColor
@@ -148,6 +149,7 @@ fun HorizontalAlbum(
             items(count = 10) {
                 Card(
                     modifier = Modifier
+                        .background(Color.Black)
                         .width(150.dp)
                         .wrapContentHeight()
                         .padding(10.dp, 4.dp, 5.dp, 0.dp)
@@ -217,4 +219,11 @@ fun VerticalAlbum(
             }
         }
     }
+}
+
+
+@Composable
+@Preview
+fun PreviewAlbumList() {
+    HorizontalAlbum(navController = rememberNavController(),"즐겨 듣는 음악")
 }
