@@ -68,8 +68,25 @@ fun ExploreScreen(navController: NavHostController) {
                     color = Color.White,
                 )
             }
+            item {
+                LazyRow {
+                    items(count = 6) {
+                        Column {
+                            ItemPopularSong(Music("ELEVEN","","IVE(아이브)",""))
+                            ItemPopularSong(Music("Savage","","aespa",""))
+                            ItemPopularSong(Music("Celebrity","","아이유(IU)",""))
+                            ItemPopularSong(Music("Next Level","","aespa",""))
+                        }
+                    }
+                }
+            }
         }
     }
+}
+
+@Composable
+fun itemGenreToggle(title: String) {
+
 }
 
 @Composable
@@ -105,33 +122,29 @@ fun ExploreTopItem(item: Pair<String, Painter>) {
 
 @Composable
 fun ItemPopularSong(song: Music) {
-    LazyColumn {
-        items(count = 4) {
-            Row(modifier = Modifier.width(320.dp)) {
-                Image(
-                    painter = painterResource(id = R.drawable.test2),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .width(48.dp)
-                        .height(48.dp)
-                        .clip(RoundedCornerShape(5f)),
-                    contentScale = ContentScale.FillHeight
-                )
-                Spacer(modifier = Modifier.padding(start = 8.dp))
-                Text(text = "1")
-                Column(
-                    modifier = Modifier
-                        .padding(start = 16.dp)
-                ) {
-                    Text(text = song.title)
-                    Text(
-                        text = song.author,
-                        fontSize = 13.sp,
-                        color = Color.Gray
-                    )
-                }
-            }
+    Row(modifier = Modifier.width(320.dp)) {
+        Image(
+            painter = painterResource(id = R.drawable.test2),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(8.dp)
+                .width(48.dp)
+                .height(48.dp)
+                .clip(RoundedCornerShape(5f)),
+            contentScale = ContentScale.FillHeight
+        )
+        Spacer(modifier = Modifier.padding(start = 8.dp))
+        Text(text = "1")
+        Column(
+            modifier = Modifier
+                .padding(start = 16.dp)
+        ) {
+            Text(text = song.title)
+            Text(
+                text = song.author,
+                fontSize = 13.sp,
+                color = Color.Gray
+            )
         }
     }
 }
