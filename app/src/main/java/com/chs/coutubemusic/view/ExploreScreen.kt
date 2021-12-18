@@ -7,8 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
@@ -26,9 +25,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.model.Music
+import com.chs.coutubemusic.ui.theme.ChipDisableColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
+import com.chs.coutubemusic.ui.theme.GenreMoodColor
 
 @Composable
 fun ExploreScreen(navController: NavHostController) {
@@ -55,29 +57,91 @@ fun ExploreScreen(navController: NavHostController) {
 
             }
             item {
-                Text(
+                Row(
                     modifier = Modifier
-                        .padding(
-                            start = 8.dp,
-                            top = 8.dp,
-                            bottom = 8.dp
-                        ),
-                    text = "인기곡",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 26.sp,
-                    color = Color.White,
-                )
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(
+                                start = 8.dp,
+                                top = 8.dp,
+                                bottom = 8.dp
+                            ),
+                        text = "인기곡",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 26.sp,
+                        color = Color.White,
+                    )
+
+                    Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                        onClick = { /*TODO*/ }) {
+                        Text(text = "모두 보기", color = Color.Gray)
+                    }
+                }
             }
             item {
                 LazyRow {
                     items(count = 6) {
                         Column {
-                            ItemPopularSong(Music("ELEVEN","","IVE(아이브)",""))
-                            ItemPopularSong(Music("Savage","","aespa",""))
-                            ItemPopularSong(Music("Celebrity","","아이유(IU)",""))
-                            ItemPopularSong(Music("Next Level","","aespa",""))
+                            ItemPopularSong(Music("ELEVEN", "", "IVE(아이브)", ""))
+                            ItemPopularSong(Music("Savage", "", "aespa", ""))
+                            ItemPopularSong(Music("Celebrity", "", "아이유(IU)", ""))
+                            ItemPopularSong(Music("Next Level", "", "aespa", ""))
                         }
                     }
+                }
+            }
+            item {
+                MoodGenreList()
+            }
+        }
+    }
+}
+
+@Composable
+fun MoodGenreList() {
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(
+                        start = 8.dp,
+                        top = 8.dp,
+                        bottom = 8.dp
+                    ),
+                text = "분위기 및 장르",
+                fontWeight = FontWeight.Bold,
+                fontSize = 26.sp,
+                color = Color.White,
+            )
+
+            Button(
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                onClick = { /*TODO*/ }) {
+                Text(text = "모두 보기", color = Color.Gray)
+            }
+        }
+
+        LazyRow(
+            modifier = Modifier.padding(start = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(count = 13) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    ItemGenre("댄스 & 일렉트로닉")
+                    ItemGenre("계절 & 테마")
+                    ItemGenre("1990년대")
                 }
             }
         }
@@ -85,8 +149,33 @@ fun ExploreScreen(navController: NavHostController) {
 }
 
 @Composable
-fun itemGenreToggle(title: String) {
-
+fun ItemGenre(title: String) {
+    Card(
+        modifier = Modifier
+            .width(180.dp)
+            .height(50.dp),
+        shape = RoundedCornerShape(15f)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(GenreMoodColor),
+        ) {
+            Box(
+                modifier = Modifier
+                    .width(5.dp)
+                    .fillMaxHeight()
+                    .background(Color.Cyan)
+            )
+            Text(
+                modifier = Modifier.fillMaxSize(),
+                text = title,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+    }
 }
 
 @Composable
@@ -151,7 +240,6 @@ fun ItemPopularSong(song: Music) {
 
 @Preview(showBackground = true)
 @Composable
-fun testExplore() {
-    CoutubeMusicTheme {
-    }
+fun PreViewExplore() {
+    ExploreScreen(rememberNavController())
 }

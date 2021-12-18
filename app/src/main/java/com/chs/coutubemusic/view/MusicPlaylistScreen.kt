@@ -66,8 +66,8 @@ fun PlayListInfo(
                 painterResource(id = R.drawable.test2),
                 contentDescription = null,
                 modifier = Modifier
-                    .width(200.dp)
-                    .height(200.dp)
+                    .width(190.dp)
+                    .height(190.dp)
                     .clip(RoundedCornerShape(5.dp)),
                 contentScale = ContentScale.FillHeight
             )
@@ -89,7 +89,7 @@ fun PlayListInfo(
 
                 Text(
                     modifier = Modifier.padding(bottom = 8.dp),
-                    text = "소유자: $author",
+                    text = "소유자: ${author}님",
                     fontSize = 14.sp,
                     color = Color.Gray
                 )
