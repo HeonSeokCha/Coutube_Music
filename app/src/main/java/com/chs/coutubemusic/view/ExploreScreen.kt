@@ -3,6 +3,7 @@ package com.chs.coutubemusic.view
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.R
+import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.model.Music
 import com.chs.coutubemusic.ui.theme.ChipDisableColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
@@ -57,46 +59,55 @@ fun ExploreScreen(navController: NavHostController) {
 
             }
             item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(
-                                start = 8.dp,
-                                top = 8.dp,
-                                bottom = 8.dp
-                            ),
-                        text = "인기곡",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 26.sp,
-                        color = Color.White,
-                    )
-
-                    Button(
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-                        onClick = { /*TODO*/ }) {
-                        Text(text = "모두 보기", color = Color.Gray)
-                    }
-                }
-            }
-            item {
-                LazyRow {
-                    items(count = 6) {
-                        Column {
-                            ItemPopularSong(Music("ELEVEN", "", "IVE(아이브)", ""))
-                            ItemPopularSong(Music("Savage", "", "aespa", ""))
-                            ItemPopularSong(Music("Celebrity", "", "아이유(IU)", ""))
-                            ItemPopularSong(Music("Next Level", "", "aespa", ""))
-                        }
-                    }
-                }
+                PopularSongs("인기곡")
             }
             item {
                 MoodGenreList()
+            }
+            item {
+                PopularSongs("인기")
+            }
+            item {
+                NewMusicVideo()
+            }
+        }
+    }
+}
+
+@Composable
+fun PopularSongs(title: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(
+                    start = 8.dp,
+                    top = 8.dp,
+                    bottom = 8.dp
+                ),
+            text = title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 26.sp,
+            color = Color.White,
+        )
+
+        Button(
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+            onClick = { /*TODO*/ }) {
+            Text(text = "모두 보기", color = Color.Gray)
+        }
+    }
+    LazyRow {
+        items(count = 6) {
+            Column {
+                ItemPopularSong(Music("ELEVEN", "", "IVE(아이브)", ""))
+                ItemPopularSong(Music("Savage", "", "aespa", ""))
+                ItemPopularSong(Music("Celebrity", "", "아이유(IU)", ""))
+                ItemPopularSong(Music("Next Level", "", "aespa", ""))
             }
         }
     }
@@ -132,7 +143,7 @@ fun MoodGenreList() {
         }
 
         LazyRow(
-            modifier = Modifier.padding(start = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(count = 13) {
@@ -153,7 +164,7 @@ fun ItemGenre(title: String) {
     Card(
         modifier = Modifier
             .width(180.dp)
-            .height(50.dp),
+            .height(48.dp),
         shape = RoundedCornerShape(15f)
     ) {
         Row(
@@ -163,13 +174,20 @@ fun ItemGenre(title: String) {
         ) {
             Box(
                 modifier = Modifier
-                    .width(5.dp)
+                    .width(6.dp)
                     .fillMaxHeight()
                     .background(Color.Cyan)
             )
             Text(
-                modifier = Modifier.fillMaxSize(),
-                text = title,
+                modifier = Modifier
+                    .padding(
+                        start = 8.dp,
+                        bottom = 15.dp,
+                        top = 15.dp
+                    ),
+                text = "$title",
+                maxLines = 2,
+                fontSize = 14.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -238,8 +256,76 @@ fun ItemPopularSong(song: Music) {
     }
 }
 
+@Composable
+fun NewMusicVideo() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(
+                    top = 8.dp,
+                    bottom = 8.dp
+                ),
+            text = "새 뮤직비디오",
+            fontWeight = FontWeight.Bold,
+            fontSize = 26.sp,
+            color = Color.White,
+        )
+
+        Button(
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+            onClick = { /*TODO*/ }) {
+            Text(text = "모두 보기", color = Color.Gray)
+        }
+    }
+
+    LazyRow(modifier = Modifier.padding(bottom = 16.dp)) {
+        items(count = 6) {
+            ItemMusicVideo()
+        }
+    }
+}
+
+@Composable
+fun ItemMusicVideo() {
+    Column(
+        modifier = Modifier
+            .padding(end = 16.dp)
+            .width(300.dp)
+            .wrapContentHeight(),
+    ) {
+        Card(
+            modifier = Modifier
+                .background(Color.Black)
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+                .height(200.dp)
+                .clip(RoundedCornerShape(10.dp))
+        ) {
+            Image(
+                painterResource(id = R.drawable.test2),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+        }
+        Text(
+            text = "Love is like watching start with you(사랑은 너와 별을 보는 것)",
+            color = Color.White
+        )
+        Text(
+            text = "디셈버(December) 조회수 1만회",
+            color = Color.Gray,
+            fontSize = 12.sp
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreViewExplore() {
-    ExploreScreen(rememberNavController())
+    NewMusicVideo()
 }
