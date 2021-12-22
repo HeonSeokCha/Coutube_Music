@@ -11,6 +11,6 @@
 ### And it's a "Jetpack Compose Youtbue Music" that I'm going to make.
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/55890012/140937275-d038a2a2-e11d-4f77-9fae-082fd8a10027.jpg" width = "250px" height = "500px"/>
-  <img src="https://user-images.githubusercontent.com/55890012/140937150-c9b2947e-10b3-4e30-85eb-1a147356b2f2.jpg" width = "250px" height = "500px"/>
+  <img src="https://user-images.githubusercontent.com/55890012/146786031-eb4b4502-5b89-42f6-8300-4eac50eb759e.png" width = "250px" height = "500px"/>
+  <img src="https://user-images.githubusercontent.com/55890012/146786017-f4587ca9-be97-4272-bc65-96df42907968.png" width = "250px" height = "500px"/>
 </p>
