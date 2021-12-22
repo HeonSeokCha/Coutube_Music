@@ -29,7 +29,7 @@ fun SetUpNavGraph(
             ExploreScreen(bottomNavController)
         }
         composable(Screen.Library.route) {
-            LibraryScreen()
+            LibraryScreen(bottomNavController)
         }
         composable(Screen.MusicPlayerList.route) {
             MusicPlaylistScreen(bottomNavController)
