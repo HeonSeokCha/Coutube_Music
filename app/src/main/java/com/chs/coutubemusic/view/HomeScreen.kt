@@ -155,10 +155,9 @@ fun HorizontalAlbum(
                 Card(
                     modifier = Modifier
                         .background(Color.Black)
-                        .width(150.dp)
+                        .width(180.dp)
                         .wrapContentHeight()
                         .padding(10.dp, 4.dp, 5.dp, 0.dp)
-                        .clip(RoundedCornerShape(10.dp))
                         .clickable {
                             navController.navigate(route = Screen.MusicPlayerList.route)
                         }
@@ -173,8 +172,8 @@ fun HorizontalAlbum(
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(120.dp)
-                                .clip(RoundedCornerShape(5f)),
+                                .height(150.dp)
+                                .clip(RoundedCornerShape(15f)),
                             contentScale = ContentScale.FillHeight
                             )
 

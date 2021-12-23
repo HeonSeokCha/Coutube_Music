@@ -14,17 +14,18 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.R
 
 @Composable
 fun LibraryScreen(navController: NavHostController) {
     val exploreTopItems: List<Pair<String, Painter>> = listOf(
-        "오프라인 저장 콘텐츠" to painterResource(id = R.drawable.ic_new_album),
-        "재생목록" to painterResource(id = R.drawable.ic_chart),
-        "앨범" to painterResource(id = R.drawable.ic_feel),
-        "노래" to painterResource(id = R.drawable.ic_new_album),
-        "아티스트" to painterResource(id = R.drawable.ic_chart),
-        "구독" to painterResource(id = R.drawable.ic_feel)
+        "오프라인 저장 콘텐츠" to painterResource(id = R.drawable.ic_music_player_download),
+        "재생목록" to painterResource(id = R.drawable.ic_play_list),
+        "앨범" to painterResource(id = R.drawable.ic_new_album),
+        "노래" to painterResource(id = R.drawable.ic_music),
+        "아티스트" to painterResource(id = R.drawable.ic_artist),
+        "구독" to painterResource(id = R.drawable.ic_subscriptions)
     )
     Column(
         modifier = Modifier
@@ -49,5 +50,30 @@ fun LibraryScreen(navController: NavHostController) {
 @Preview
 @Composable
 fun PreviewLibrary() {
+    val exploreTopItems: List<Pair<String, Painter>> = listOf(
+        "오프라인 저장 콘텐츠" to painterResource(id = R.drawable.ic_music_player_download),
+        "재생목록" to painterResource(id = R.drawable.ic_play_list),
+        "앨범" to painterResource(id = R.drawable.ic_new_album),
+        "노래" to painterResource(id = R.drawable.ic_music),
+        "아티스트" to painterResource(id = R.drawable.ic_artist),
+        "구독" to painterResource(id = R.drawable.ic_subscriptions)
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+    ) {
+        LazyColumn {
+            item {
+                HorizontalAlbum(
+                    navController = rememberNavController(),
+                    title = "최근 활동"
+                )
+            }
 
+            items(count = 6) { idx ->
+                ExploreTopItem(exploreTopItems[idx])
+            }
+        }
+    }
 }

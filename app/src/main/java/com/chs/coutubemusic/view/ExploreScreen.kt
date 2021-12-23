@@ -283,7 +283,7 @@ fun NewMusicVideo() {
         }
     }
 
-    LazyRow(modifier = Modifier.padding(bottom = 16.dp)) {
+    LazyRow(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp)) {
         items(count = 6) {
             ItemMusicVideo()
         }

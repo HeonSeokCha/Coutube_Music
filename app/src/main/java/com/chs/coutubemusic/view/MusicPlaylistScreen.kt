@@ -203,9 +203,6 @@ fun MusicListItem(music: Music, navController: NavHostController) {
                 color = Color.Gray
             )
         }
-
-        IconButton(onClick = { /*TODO*/ }) {
-        }
     }
 }
 
