@@ -74,10 +74,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
-                    SetUpNavGraph(
-                        bottomNavController = navController,
-                        it
-                    )
+
                 }
             }
         }
@@ -158,29 +155,6 @@ fun BottomNavigationBar(
 @Composable
 fun PreviewAppBar() {
     CoutubeMusicTheme {
-        val navController = rememberNavController()
-        BottomNavigationBar(
-            items = listOf(
-                BottomNavItem(
-                    name = "Home",
-                    route = "home",
-                    icon = Icons.Default.Home
-                ),
-                BottomNavItem(
-                    name = "Explore",
-                    route = "explore",
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_un_explore)
-                ),
-                BottomNavItem(
-                    name = "Library",
-                    route = "library",
-                    icon = ImageVector.vectorResource(id = R.drawable.ic_un_library)
-                )
-            ),
-            navController = navController,
-            onItemClick = {
-                navController.navigate(it.route)
-            }
-        )
+        Appbar()
     }
 }

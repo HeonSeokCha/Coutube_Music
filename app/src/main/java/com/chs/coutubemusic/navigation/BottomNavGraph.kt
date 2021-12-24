@@ -5,38 +5,32 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
+import com.chs.coutubemusic.BOTTOM_GRAPH_ROUTE
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.view.*
 
-@Composable
-fun SetUpNavGraph(
-    bottomNavController: NavHostController,
-    paddingValues: PaddingValues
+
+
+fun NavGraphBuilder.bottomNavGraph(
+    navController: NavHostController
 ) {
-    NavHost(
-        navController = bottomNavController,
+    navigation(
         startDestination = Screen.Home.route,
-        modifier = Modifier
-            .padding(bottom = paddingValues.calculateBottomPadding())
+        route = BOTTOM_GRAPH_ROUTE
     ) {
         composable(Screen.Home.route) {
-            HomeScreen(bottomNavController)
+            HomeScreen(navController)
         }
         composable(Screen.Explore.route) {
-            ExploreScreen(bottomNavController)
+            ExploreScreen(navController)
         }
         composable(Screen.Library.route) {
-            LibraryScreen(bottomNavController)
-        }
-        composable(Screen.MusicPlayerList.route) {
-            MusicPlaylistScreen(bottomNavController)
-        }
-
-        composable(Screen.MusicPlayerScreen.route) {
-            MusicPLayerScreen()
+            LibraryScreen(navController)
         }
     }
 }
