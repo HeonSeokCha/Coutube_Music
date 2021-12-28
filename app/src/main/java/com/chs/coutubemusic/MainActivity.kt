@@ -1,6 +1,7 @@
 package com.chs.coutubemusic
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.twotone.PlayArrow
 import androidx.compose.material.icons.twotone.Search
@@ -25,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -66,16 +69,17 @@ class MainActivity : ComponentActivity() {
                             onItemClick = {
                                 if (it.route != navController.currentDestination?.route) {
                                     navController.navigate(it.route) {
-                                        popUpTo(0)
+                                        popUpTo(navController.graph.findStartDestination().id)
                                         launchSingleTop = true
                                     }
                                 }
                             }
                         )
+                    },
+                    content = {
+                        SetUpNavGraph(navController = navController, it)
                     }
-                ) {
-                    SetUpNavGraph(navController = navController, it)
-                }
+                )
             }
         }
     }
@@ -88,6 +92,11 @@ fun Appbar() {
             title = {
                 Icon(imageVector = Icons.TwoTone.PlayArrow, contentDescription = null)
                 Text(text = "Music")
+            },
+            navigationIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(Icons.Filled.ArrowBack, null)
+                }
             },
             actions = {
                 IconButton(onClick = { /*TODO*/ }) {
