@@ -75,11 +75,10 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         )
-                    },
-                    content = {
-                        SetUpNavGraph(navController = navController, it)
                     }
-                )
+                ) {
+                    SetUpNavGraph(navController = navController, it)
+                }
             }
         }
     }
@@ -92,11 +91,6 @@ fun Appbar() {
             title = {
                 Icon(imageVector = Icons.TwoTone.PlayArrow, contentDescription = null)
                 Text(text = "Music")
-            },
-            navigationIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(Icons.Filled.ArrowBack, null)
-                }
             },
             actions = {
                 IconButton(onClick = { /*TODO*/ }) {

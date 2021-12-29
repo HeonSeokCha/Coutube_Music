@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,16 +27,32 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
 @Composable
 fun MusicPLayerScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Scaffold(
+        topBar = {
+            Column {
+                TopAppBar(
+                    title = {
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {  }) {
+                            Icon(Icons.Filled.ArrowBack, null)
+                        }
+                    }
+                )
+            }
+        }
     ) {
-        MusicPlayerImage()
-        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
-        MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
-        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
-        MusicPlayerControl()
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            MusicPlayerImage()
+            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+            MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
+            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+            MusicPlayerControl()
+        }
     }
 }
 

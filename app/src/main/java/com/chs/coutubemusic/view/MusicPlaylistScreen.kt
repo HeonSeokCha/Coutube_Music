@@ -5,8 +5,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.twotone.PlayArrow
+import androidx.compose.material.icons.twotone.Search
+import androidx.compose.material.icons.twotone.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.chs.coutubemusic.Appbar
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.model.Music
 import com.chs.coutubemusic.R
@@ -32,19 +39,35 @@ fun MusicPlaylistScreen(navController: NavHostController) {
         "차현석",
         "18:38"
     )
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        item {
-            PlayListInfo(
-                title = "Lofi_HipHop",
-                author = "차현석",
-                listSize = "59"
-            )
+    Scaffold(
+        topBar = {
+            Column {
+                TopAppBar(
+                    title = {
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { navController.navigateUp() }) {
+                            Icon(Icons.Filled.ArrowBack, null)
+                        }
+                    }
+                )
+            }
         }
-        items(count = 30) {
-            MusicListItem(music = music, navController = navController)
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                PlayListInfo(
+                    title = "Lofi_HipHop",
+                    author = "차현석",
+                    listSize = "59"
+                )
+            }
+            items(count = 30) {
+                MusicListItem(music = music, navController = navController)
+            }
         }
     }
 }
