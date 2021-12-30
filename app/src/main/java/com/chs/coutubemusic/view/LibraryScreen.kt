@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.chs.coutubemusic.Appbar
 import com.chs.coutubemusic.R
 
 @Composable
@@ -27,21 +30,27 @@ fun LibraryScreen(navController: NavHostController) {
         "아티스트" to painterResource(id = R.drawable.ic_artist),
         "구독" to painterResource(id = R.drawable.ic_subscriptions)
     )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-    ) {
-        LazyColumn {
-            item {
-                HorizontalAlbum(
-                    navController = navController,
-                    title = "최근 활동"
-                )
-            }
 
-            items(count = 6) { idx ->
-                ExploreTopItem(exploreTopItems[idx])
+    Scaffold(
+        topBar = {
+            Appbar()
+        }) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        ) {
+            LazyColumn {
+                item {
+                    HorizontalAlbum(
+                        navController = navController,
+                        title = "최근 활동"
+                    )
+                }
+
+                items(count = 6) { idx ->
+                    ExploreTopItem(exploreTopItems[idx])
+                }
             }
         }
     }

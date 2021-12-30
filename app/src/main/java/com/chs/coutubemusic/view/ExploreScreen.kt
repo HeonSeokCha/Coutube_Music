@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.chs.coutubemusic.Appbar
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.model.Music
@@ -41,34 +43,39 @@ fun ExploreScreen(navController: NavHostController) {
         "차트" to painterResource(id = R.drawable.ic_chart),
         "분위기 및 장르" to painterResource(id = R.drawable.ic_feel),
     )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-    ) {
-        LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
-            items(3) { idx ->
-                ExploreTopItem(exploreTopItems[idx])
-            }
-            item {
-                Spacer(modifier = Modifier.padding(bottom = 16.dp))
-                HorizontalAlbum(
-                    navController = navController,
-                    title = "새 앨범 및 싱글"
-                )
+    Scaffold(
+        topBar = {
+            Appbar()
+        }) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        ) {
+            LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
+                items(3) { idx ->
+                    ExploreTopItem(exploreTopItems[idx])
+                }
+                item {
+                    Spacer(modifier = Modifier.padding(bottom = 16.dp))
+                    HorizontalAlbum(
+                        navController = navController,
+                        title = "새 앨범 및 싱글"
+                    )
 
-            }
-            item {
-                PopularSongs("인기곡")
-            }
-            item {
-                MoodGenreList()
-            }
-            item {
-                PopularSongs("인기")
-            }
-            item {
-                NewMusicVideo()
+                }
+                item {
+                    PopularSongs("인기곡")
+                }
+                item {
+                    MoodGenreList()
+                }
+                item {
+                    PopularSongs("인기")
+                }
+                item {
+                    NewMusicVideo()
+                }
             }
         }
     }

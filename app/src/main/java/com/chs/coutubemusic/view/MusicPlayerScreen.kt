@@ -29,17 +29,14 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 fun MusicPLayerScreen() {
     Scaffold(
         topBar = {
-            Column {
-                TopAppBar(
-                    title = {
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = {  }) {
-                            Icon(Icons.Filled.ArrowBack, null)
-                        }
+            TopAppBar(
+                title = { },
+                navigationIcon = {
+                    IconButton(onClick = { }) {
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
-                )
-            }
+                }
+            )
         }
     ) {
         Column(
@@ -54,11 +51,6 @@ fun MusicPLayerScreen() {
             MusicPlayerControl()
         }
     }
-}
-
-@Composable
-fun MusicPlayerAppBar() {
-
 }
 
 @Composable

@@ -15,6 +15,8 @@ import androidx.compose.material.icons.twotone.PlayArrow
 import androidx.compose.material.icons.twotone.Search
 import androidx.compose.material.icons.twotone.Share
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,9 +45,6 @@ class MainActivity : ComponentActivity() {
             CoutubeMusicTheme {
                 navController = rememberNavController()
                 Scaffold(
-                    topBar = {
-                        Appbar()
-                    },
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(
@@ -69,7 +68,7 @@ class MainActivity : ComponentActivity() {
                             onItemClick = {
                                 if (it.route != navController.currentDestination?.route) {
                                     navController.navigate(it.route) {
-                                        popUpTo(navController.graph.findStartDestination().id)
+                                        popUpTo(0)
                                         launchSingleTop = true
                                     }
                                 }
@@ -77,7 +76,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
-                    SetUpNavGraph(navController = navController, it)
+                    SetUpNavGraph(bottomNavController = navController, paddingValues = it)
                 }
             }
         }
@@ -150,14 +149,5 @@ fun BottomNavigationBar(
                 }
             )
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewAppBar() {
-    CoutubeMusicTheme {
-        Appbar()
     }
 }

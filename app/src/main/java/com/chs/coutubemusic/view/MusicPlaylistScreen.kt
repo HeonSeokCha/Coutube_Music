@@ -41,17 +41,14 @@ fun MusicPlaylistScreen(navController: NavHostController) {
     )
     Scaffold(
         topBar = {
-            Column {
-                TopAppBar(
-                    title = {
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigateUp() }) {
-                            Icon(Icons.Filled.ArrowBack, null)
-                        }
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
-                )
-            }
+                }
+            )
         }
     ) {
         LazyColumn(

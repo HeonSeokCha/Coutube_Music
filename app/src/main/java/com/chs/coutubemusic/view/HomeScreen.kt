@@ -6,10 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.chs.coutubemusic.Appbar
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.ui.theme.ChipDisableColor
@@ -36,14 +36,19 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 fun HomeScreen(
     navController: NavHostController
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(Color.Black)
-    ) {
-        TopCategory(navController)
-        VerticalAlbum(navController)
+    Scaffold(
+        topBar = {
+            Appbar()
+        }) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(Color.Black)
+        ) {
+            TopCategory(navController)
+            VerticalAlbum(navController)
+        }
     }
 }
 
@@ -175,13 +180,18 @@ fun HorizontalAlbum(
                                 .height(150.dp)
                                 .clip(RoundedCornerShape(15f)),
                             contentScale = ContentScale.FillHeight
-                            )
+                        )
 
                         Text(
                             text = "Lofi_HipHop",
                             color = Color.White,
                             fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)
+                            modifier = Modifier.padding(
+                                start = 4.dp,
+                                end = 4.dp,
+                                top = 4.dp,
+                                bottom = 4.dp
+                            )
                         )
 
                         Text(
@@ -229,5 +239,5 @@ fun VerticalAlbum(
 @Composable
 @Preview
 fun PreviewAlbumList() {
-    HorizontalAlbum(navController = rememberNavController(),"즐겨 듣는 음악")
+    HorizontalAlbum(navController = rememberNavController(), "즐겨 듣는 음악")
 }
