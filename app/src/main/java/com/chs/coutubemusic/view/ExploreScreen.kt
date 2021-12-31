@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -65,13 +66,13 @@ fun ExploreScreen(navController: NavHostController) {
 
                 }
                 item {
-                    PopularSongs("인기곡")
+                    PopularSongs(navController, "인기곡")
                 }
                 item {
                     MoodGenreList()
                 }
                 item {
-                    PopularSongs("인기")
+                    PopularSongs(navController, "인기")
                 }
                 item {
                     NewMusicVideo()
@@ -82,7 +83,7 @@ fun ExploreScreen(navController: NavHostController) {
 }
 
 @Composable
-fun PopularSongs(title: String) {
+fun PopularSongs(navController: NavHostController, title: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,7 +105,7 @@ fun PopularSongs(title: String) {
 
         Button(
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-            onClick = { /*TODO*/ }) {
+            onClick = { navController.navigate(Screen.MusicPlayerList.route) }) {
             Text(text = "모두 보기", color = Color.Gray)
         }
     }
