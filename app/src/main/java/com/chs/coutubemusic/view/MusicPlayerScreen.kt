@@ -21,18 +21,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.ui.theme.ChipDisableColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
 @Composable
-fun MusicPLayerScreen() {
+fun MusicPlayerScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { },
                 navigationIcon = {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = { navController.navigateUp() }) {
                         Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
@@ -214,6 +216,6 @@ fun MusicPlayerControl() {
 @Composable
 private fun PreviewScreen() {
     CoutubeMusicTheme {
-        MusicPLayerScreen()
+        MusicPlayerScreen(rememberNavController())
     }
 }

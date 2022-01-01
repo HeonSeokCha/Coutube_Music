@@ -59,11 +59,7 @@ fun ExploreScreen(navController: NavHostController) {
                 }
                 item {
                     Spacer(modifier = Modifier.padding(bottom = 16.dp))
-                    HorizontalAlbum(
-                        navController = navController,
-                        title = "새 앨범 및 싱글"
-                    )
-
+                    NewAlbumSingle(title = "새 앨범 및 싱글", navController = navController)
                 }
                 item {
                     PopularSongs(navController, "인기곡")
@@ -78,6 +74,43 @@ fun ExploreScreen(navController: NavHostController) {
                     NewMusicVideo()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun NewAlbumSingle(
+    title: String,
+    navController: NavHostController
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(
+                    start = 8.dp,
+                    top = 8.dp,
+                    bottom = 8.dp
+                ),
+            text = title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 26.sp,
+            color = Color.White,
+        )
+
+        Button(
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+            onClick = { navController.navigate(Screen.NewAlbumSingleScreen.route) }) {
+            Text(text = "모두 보기", color = Color.Gray)
+        }
+    }
+    LazyRow {
+        items(count = 10) {
+            ItemAlbumCard(navController)
         }
     }
 }

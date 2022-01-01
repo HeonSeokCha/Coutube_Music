@@ -1,5 +1,6 @@
 package com.chs.coutubemusic.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.navigation.compose.composable
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.view.*
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SetUpNavGraph(
     bottomNavController: NavHostController,
@@ -33,9 +35,11 @@ fun SetUpNavGraph(
         composable(Screen.MusicPlayerList.route) {
             MusicPlaylistScreen(bottomNavController)
         }
-
         composable(Screen.MusicPlayerScreen.route) {
-            MusicPLayerScreen()
+            MusicPlayerScreen(bottomNavController)
+        }
+        composable(Screen.NewAlbumSingleScreen.route) {
+            NewAlbumSingleScreen(bottomNavController)
         }
     }
 }

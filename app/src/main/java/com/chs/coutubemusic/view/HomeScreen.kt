@@ -157,55 +157,60 @@ fun HorizontalAlbum(
 
         LazyRow {
             items(count = 10) {
-                Card(
-                    modifier = Modifier
-                        .background(Color.Black)
-                        .width(180.dp)
-                        .wrapContentHeight()
-                        .padding(10.dp, 4.dp, 5.dp, 0.dp)
-                        .clickable {
-                            navController.navigate(route = Screen.MusicPlayerList.route)
-                        }
-                ) {
-                    Column(
-                        modifier = Modifier.background(Color.Black),
-                        verticalArrangement = Arrangement.Top,
-                        horizontalAlignment = Alignment.Start
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.test2),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(150.dp)
-                                .clip(RoundedCornerShape(15f)),
-                            contentScale = ContentScale.FillHeight
-                        )
-
-                        Text(
-                            text = "Lofi_HipHop",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(
-                                start = 4.dp,
-                                end = 4.dp,
-                                top = 4.dp,
-                                bottom = 4.dp
-                            )
-                        )
-
-                        Text(
-                            text = "재생목록 , 차현석, 노래 59곡",
-                            color = Color.Gray,
-                            fontSize = 11.sp,
-                            modifier = Modifier
-                                .wrapContentHeight()
-                                .fillMaxWidth()
-                                .padding(start = 4.dp, end = 4.dp, bottom = 8.dp)
-                        )
-                    }
-                }
+                ItemAlbumCard(navController)
             }
+        }
+    }
+}
+
+@Composable
+fun ItemAlbumCard(navController: NavHostController) {
+    Card(
+        modifier = Modifier
+            .background(Color.Black)
+            .width(180.dp)
+            .wrapContentHeight()
+            .padding(10.dp, 4.dp, 5.dp, 0.dp)
+            .clickable {
+                navController.navigate(route = Screen.MusicPlayerList.route)
+            }
+    ) {
+        Column(
+            modifier = Modifier.background(Color.Black),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.test2),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .clip(RoundedCornerShape(15f)),
+                contentScale = ContentScale.FillHeight
+            )
+
+            Text(
+                text = "Lofi_HipHop",
+                color = Color.White,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(
+                    start = 4.dp,
+                    end = 4.dp,
+                    top = 4.dp,
+                    bottom = 4.dp
+                )
+            )
+
+            Text(
+                text = "재생목록 , 차현석, 노래 59곡",
+                color = Color.Gray,
+                fontSize = 11.sp,
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .fillMaxWidth()
+                    .padding(start = 4.dp, end = 4.dp, bottom = 8.dp)
+            )
         }
     }
 }
