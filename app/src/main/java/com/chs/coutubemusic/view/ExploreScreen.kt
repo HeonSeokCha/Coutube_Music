@@ -71,7 +71,7 @@ fun ExploreScreen(navController: NavHostController) {
                     PopularSongs(navController, "인기")
                 }
                 item {
-                    NewMusicVideo()
+                    NewMusicVideo(navController)
                 }
             }
         }
@@ -145,10 +145,10 @@ fun PopularSongs(navController: NavHostController, title: String) {
     LazyRow {
         items(count = 6) {
             Column {
-                ItemPopularSong(Music("ELEVEN", "", "IVE(아이브)", ""))
-                ItemPopularSong(Music("Savage", "", "aespa", ""))
-                ItemPopularSong(Music("Celebrity", "", "아이유(IU)", ""))
-                ItemPopularSong(Music("Next Level", "", "aespa", ""))
+                ItemPopularSong(Music("ELEVEN", "", "IVE(아이브)", ""), navController)
+                ItemPopularSong(Music("Savage", "", "aespa", ""), navController)
+                ItemPopularSong(Music("Celebrity", "", "아이유(IU)", ""), navController)
+                ItemPopularSong(Music("Next Level", "", "aespa", ""), navController)
             }
         }
     }
@@ -269,8 +269,14 @@ fun ExploreTopItem(item: Pair<String, Painter>) {
 }
 
 @Composable
-fun ItemPopularSong(song: Music) {
-    Row(modifier = Modifier.width(320.dp)) {
+fun ItemPopularSong(song: Music, navController: NavHostController) {
+    Row(
+        modifier = Modifier
+            .width(320.dp)
+            .clickable {
+                navController.navigate(Screen.MusicPlayerScreen.route)
+            }
+    ) {
         Image(
             painter = painterResource(id = R.drawable.test2),
             contentDescription = null,
@@ -298,7 +304,7 @@ fun ItemPopularSong(song: Music) {
 }
 
 @Composable
-fun NewMusicVideo() {
+fun NewMusicVideo(navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -324,20 +330,23 @@ fun NewMusicVideo() {
         }
     }
 
-    LazyRow(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp)) {
+    LazyRow(modifier = Modifier.padding(start = 16.dp, bottom = 16.dp)) {
         items(count = 6) {
-            ItemMusicVideo()
+            ItemMusicVideo(navController)
         }
     }
 }
 
 @Composable
-fun ItemMusicVideo() {
+fun ItemMusicVideo(navController: NavHostController) {
     Column(
         modifier = Modifier
             .padding(end = 16.dp)
             .width(300.dp)
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .clickable {
+                navController.navigate(Screen.MusicPlayerScreen.route)
+            },
     ) {
         Card(
             modifier = Modifier
@@ -363,10 +372,4 @@ fun ItemMusicVideo() {
             fontSize = 12.sp
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreViewExplore() {
-    NewMusicVideo()
 }

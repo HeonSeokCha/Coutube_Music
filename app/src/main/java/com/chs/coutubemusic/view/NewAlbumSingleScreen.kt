@@ -67,16 +67,4 @@ fun NewAlbumSingleList(navController: NavHostController) {
             ItemAlbumCard(navController)
         }
     }
-//    LazyColumn(modifier = Modifier
-//        .padding(top = 8.dp)
-//        .fillMaxSize(),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        items(10) {
-//            LazyRow(contentPadding = PaddingValues(horizontal = 16.dp)){
-//
-//            }
-//        }
-//    }
 }
