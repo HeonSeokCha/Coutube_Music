@@ -41,5 +41,8 @@ fun SetUpNavGraph(
         composable(Screen.NewAlbumSingleScreen.route) {
             NewAlbumSingleScreen(bottomNavController)
         }
+        composable(Screen.MoodGenreScreen.route) {
+            MoodGenreScreen(bottomNavController)
+        }
     }
 }

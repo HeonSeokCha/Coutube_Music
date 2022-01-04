@@ -65,7 +65,7 @@ fun ExploreScreen(navController: NavHostController) {
                     PopularSongs(navController, "인기곡")
                 }
                 item {
-                    MoodGenreList()
+                    MoodGenreList(navController)
                 }
                 item {
                     PopularSongs(navController, "인기")
@@ -155,7 +155,7 @@ fun PopularSongs(navController: NavHostController, title: String) {
 }
 
 @Composable
-fun MoodGenreList() {
+fun MoodGenreList(navController: NavHostController) {
     Column {
         Row(
             modifier = Modifier
@@ -178,7 +178,7 @@ fun MoodGenreList() {
 
             Button(
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-                onClick = { /*TODO*/ }) {
+                onClick = { navController.navigate(Screen.MoodGenreScreen.route) }) {
                 Text(text = "모두 보기", color = Color.Gray)
             }
         }
@@ -204,7 +204,7 @@ fun MoodGenreList() {
 fun ItemGenre(title: String) {
     Card(
         modifier = Modifier
-            .width(180.dp)
+            .width(150.dp)
             .height(48.dp),
         shape = RoundedCornerShape(15f)
     ) {
