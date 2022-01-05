@@ -93,13 +93,7 @@ fun GenreMoodList(
             .fillMaxWidth()
             .wrapContentHeight()
             .background(Color.Black),
-        cells = GridCells.Fixed(2),
-        contentPadding = PaddingValues(
-            start = 4.dp,
-            top = 16.dp,
-            end = 4.dp,
-            bottom = 16.dp
-        )
+        cells = GridCells.Fixed(2)
     ) {
         items(items.size) { idx ->
             ItemGenre(items[idx])
