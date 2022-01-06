@@ -325,7 +325,7 @@ fun NewMusicVideo(navController: NavHostController) {
 
         Button(
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-            onClick = { /*TODO*/ }) {
+            onClick = { navController.navigate(Screen.MusicVideoScreen.route) }) {
             Text(text = "모두 보기", color = Color.Gray)
         }
     }
