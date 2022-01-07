@@ -49,7 +49,7 @@ fun LibraryScreen(navController: NavHostController) {
                 }
 
                 items(count = 6) { idx ->
-                    ExploreTopItem(exploreTopItems[idx])
+                    ExploreTopItem(exploreTopItems[idx],navController)
                 }
             }
         }
@@ -81,7 +81,7 @@ fun PreviewLibrary() {
             }
 
             items(count = 6) { idx ->
-                ExploreTopItem(exploreTopItems[idx])
+                ExploreTopItem(exploreTopItems[idx], rememberNavController())
             }
         }
     }

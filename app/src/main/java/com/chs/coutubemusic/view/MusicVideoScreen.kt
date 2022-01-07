@@ -1,8 +1,6 @@
 package com.chs.coutubemusic.view
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -42,7 +40,15 @@ fun MusicVideoScreen(navController : NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(10) {
-                ItemMusicVideo(navController)
+                ItemMusicVideo(
+                    navController,
+                    Modifier
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp)
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                )
             }
         }
     }

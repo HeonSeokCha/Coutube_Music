@@ -55,7 +55,7 @@ fun ExploreScreen(navController: NavHostController) {
         ) {
             LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
                 items(3) { idx ->
-                    ExploreTopItem(exploreTopItems[idx])
+                    ExploreTopItem(exploreTopItems[idx], navController)
                 }
                 item {
                     Spacer(modifier = Modifier.padding(bottom = 16.dp))
@@ -238,12 +238,28 @@ fun ItemGenre(title: String) {
 }
 
 @Composable
-fun ExploreTopItem(item: Pair<String, Painter>) {
+fun ExploreTopItem(
+    item: Pair<String, Painter>,
+    navController: NavHostController
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 16.dp),
+            .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 16.dp)
+            .clickable {
+                       when(item.first) {
+                           "새 앨범" -> {
+
+                           }
+                           "차트" -> {
+
+                           }
+                           "분위기 및 장르" -> {
+                               navController.navigate(Screen.MoodGenreScreen.route)
+                           }
+                       }
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -332,18 +348,24 @@ fun NewMusicVideo(navController: NavHostController) {
 
     LazyRow(modifier = Modifier.padding(start = 16.dp, bottom = 16.dp)) {
         items(count = 6) {
-            ItemMusicVideo(navController)
+            ItemMusicVideo(
+                navController,
+                Modifier
+                    .padding(end = 16.dp)
+                    .width(300.dp)
+                    .wrapContentHeight()
+            )
         }
     }
 }
 
 @Composable
-fun ItemMusicVideo(navController: NavHostController) {
+fun ItemMusicVideo(
+    navController: NavHostController,
+    modifier: Modifier
+) {
     Column(
-        modifier = Modifier
-            .padding(end = 16.dp)
-            .width(300.dp)
-            .wrapContentHeight()
+        modifier = modifier
             .clickable {
                 navController.navigate(Screen.MusicPlayerScreen.route)
             },
