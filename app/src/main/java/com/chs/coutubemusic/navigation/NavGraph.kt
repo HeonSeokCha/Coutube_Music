@@ -47,5 +47,8 @@ fun SetUpNavGraph(
         composable(Screen.MusicVideoScreen.route) {
             MusicVideoScreen(bottomNavController)
         }
+        composable(Screen.NewAlbumScreen.route) {
+            NewAlbumScreen(bottomNavController)
+        }
     }
 }

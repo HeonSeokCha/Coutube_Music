@@ -250,7 +250,7 @@ fun ExploreTopItem(
             .clickable {
                        when(item.first) {
                            "새 앨범" -> {
-
+                               navController.navigate(Screen.NewAlbumScreen.route)
                            }
                            "차트" -> {
 
