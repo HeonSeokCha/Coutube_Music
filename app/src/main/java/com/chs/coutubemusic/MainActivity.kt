@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -17,6 +18,7 @@ import androidx.compose.material.icons.twotone.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -36,9 +39,12 @@ import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.navigation.SetUpNavGraph
 import com.chs.coutubemusic.ui.theme.BottomBarColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
+
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -74,10 +80,11 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         )
+                    },
+                    content = {
+                        SetUpNavGraph(bottomNavController = navController, paddingValues = it)
                     }
-                ) {
-                    SetUpNavGraph(bottomNavController = navController, paddingValues = it)
-                }
+                )
             }
         }
     }
@@ -151,3 +158,62 @@ fun BottomNavigationBar(
         }
     }
 }
+
+@ExperimentalMaterialApi
+@Composable
+fun BottomSheet(content: @Composable () -> Unit) {
+    val scope = rememberCoroutineScope()
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
+    )
+
+    val sheetToggle: () -> Unit = {
+        scope.launch {
+            if (scaffoldState.bottomSheetState.isCollapsed) {
+                scaffoldState.bottomSheetState.expand()
+            } else {
+                scaffoldState.bottomSheetState.collapse()
+            }
+        }
+    }
+    val radius = (30 * scaffoldState.currentFraction).dp
+
+    BottomSheetScaffold(
+        modifier = Modifier
+            .fillMaxWidth(),
+        scaffoldState = scaffoldState,
+        sheetShape = RoundedCornerShape(topStart = radius, topEnd = radius),
+        sheetContent = {
+            SheetContent {
+                SheetExpanded {
+
+                }
+                SheetCollapsed(
+                    isCollapsed = scaffoldState.bottomSheetState.isCollapsed,
+                    currentFraction = scaffoldState.currentFraction,
+                    onSheetClick = sheetToggle
+                ) {
+                    MusicPlayerScreenSmall()
+                }
+            }
+        },
+        sheetPeekHeight = 70.dp
+    ) {
+        content()
+    }
+}
+
+@ExperimentalMaterialApi
+val BottomSheetScaffoldState.currentFraction: Float
+    get() {
+        val fraction = bottomSheetState.progress.fraction
+        val targetValue = bottomSheetState.targetValue
+        val currentValue = bottomSheetState.currentValue
+
+        return when {
+            currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Collapsed -> 0f
+            currentValue == BottomSheetValue.Expanded && targetValue == BottomSheetValue.Expanded -> 1f
+            currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Expanded -> fraction
+            else -> 1f - fraction
+        }
+    }

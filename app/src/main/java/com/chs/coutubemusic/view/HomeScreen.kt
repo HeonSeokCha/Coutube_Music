@@ -27,19 +27,18 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.Appbar
+import com.chs.coutubemusic.BottomSheet
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.ui.theme.ChipDisableColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
+@ExperimentalMaterialApi
 @Composable
 fun HomeScreen(
     navController: NavHostController
 ) {
-    Scaffold(
-        topBar = {
-            Appbar()
-        }) {
+    BottomSheet {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -50,6 +49,13 @@ fun HomeScreen(
             VerticalAlbum(navController)
         }
     }
+//    BottomSheetScaffold(
+//        topBar = {
+//            Appbar()
+//        }
+//    ) {
+//
+//    }
 }
 
 @Composable
