@@ -38,24 +38,16 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 fun HomeScreen(
     navController: NavHostController
 ) {
-    BottomSheet {
+    BottomSheet(navController) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
+                .fillMaxSize()
                 .background(Color.Black)
         ) {
             TopCategory(navController)
             VerticalAlbum(navController)
         }
     }
-//    BottomSheetScaffold(
-//        topBar = {
-//            Appbar()
-//        }
-//    ) {
-//
-//    }
 }
 
 @Composable

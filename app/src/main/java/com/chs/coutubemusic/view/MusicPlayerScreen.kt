@@ -29,29 +29,16 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
 @Composable
 fun MusicPlayerScreen(navController: NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
-            )
-        }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            MusicPlayerImage()
-            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
-            MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
-            Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
-            MusicPlayerControl()
-        }
+        MusicPlayerImage()
+        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+        MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
+        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+        MusicPlayerControl()
     }
 }
 

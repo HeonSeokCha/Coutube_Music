@@ -39,6 +39,7 @@ import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.navigation.SetUpNavGraph
 import com.chs.coutubemusic.ui.theme.BottomBarColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
+import com.chs.coutubemusic.view.MusicPlayerScreen
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -161,7 +162,10 @@ fun BottomNavigationBar(
 
 @ExperimentalMaterialApi
 @Composable
-fun BottomSheet(content: @Composable () -> Unit) {
+fun BottomSheet(
+    navController: NavHostController,
+    content: @Composable () -> Unit
+) {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
@@ -176,17 +180,16 @@ fun BottomSheet(content: @Composable () -> Unit) {
             }
         }
     }
-    val radius = (30 * scaffoldState.currentFraction).dp
 
     BottomSheetScaffold(
+        topBar = { Appbar() },
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxSize(),
         scaffoldState = scaffoldState,
-        sheetShape = RoundedCornerShape(topStart = radius, topEnd = radius),
         sheetContent = {
             SheetContent {
                 SheetExpanded {
-
+                    MusicPlayerScreen(navController = navController)
                 }
                 SheetCollapsed(
                     isCollapsed = scaffoldState.bottomSheetState.isCollapsed,
@@ -197,23 +200,23 @@ fun BottomSheet(content: @Composable () -> Unit) {
                 }
             }
         },
-        sheetPeekHeight = 70.dp
-    ) {
-        content()
-    }
+        sheetPeekHeight = 70.dp,
+        content = {
+            content()
+        }
+    )
 }
 
 @ExperimentalMaterialApi
-val BottomSheetScaffoldState.currentFraction: Float
-    get() {
-        val fraction = bottomSheetState.progress.fraction
-        val targetValue = bottomSheetState.targetValue
-        val currentValue = bottomSheetState.currentValue
+val BottomSheetScaffoldState.currentFraction: Float get() {
+    val fraction = bottomSheetState.progress.fraction
+    val targetValue = bottomSheetState.targetValue
+    val currentValue = bottomSheetState.currentValue
 
-        return when {
-            currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Collapsed -> 0f
-            currentValue == BottomSheetValue.Expanded && targetValue == BottomSheetValue.Expanded -> 1f
-            currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Expanded -> fraction
-            else -> 1f - fraction
-        }
+    return when {
+        currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Collapsed -> 0f
+        currentValue == BottomSheetValue.Expanded && targetValue == BottomSheetValue.Expanded -> 1f
+        currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Expanded -> fraction
+        else -> 1f - fraction
     }
+}

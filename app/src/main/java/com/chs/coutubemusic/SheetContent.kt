@@ -1,5 +1,6 @@
 package com.chs.coutubemusic
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,13 +19,11 @@ import com.chs.coutubemusic.ui.theme.BottomBarColor
 
 @Composable
 fun SheetContent(
-    heightFraction: Float = 0.8f,
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(fraction = heightFraction)
+            .fillMaxSize()
     ) {
         content()
     }
@@ -37,7 +36,6 @@ fun SheetExpanded(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
     ) {
         content()
     }
@@ -54,7 +52,7 @@ fun SheetCollapsed(
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
-            .background(Color.Black)
+            .background(BottomBarColor)
             .graphicsLayer(alpha = 1f - currentFraction)
             .noRippleClickable(
                 onClick = onSheetClick,
@@ -63,57 +61,6 @@ fun SheetCollapsed(
         verticalAlignment = Alignment.CenterVertically
     ) {
         content()
-    }
-}
-
-@Composable
-fun MusicPlayer(
-    topSection: @Composable () -> Unit,
-    playerControls: @Composable () -> Unit,
-) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(BottomBarColor)
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 35.dp)
-            ) {
-                topSection()
-            }
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.2f)
-        ) {
-            Spacer(
-                modifier = Modifier
-                    .clip(
-                        RoundedCornerShape(
-                            bottomStartPercent = 100,
-                            bottomEndPercent = 100
-                        )
-                    )
-                    .background(BottomBarColor)
-                    .height(35.dp)
-                    .fillMaxWidth()
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 35.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                playerControls()
-            }
-        }
     }
 }
 
