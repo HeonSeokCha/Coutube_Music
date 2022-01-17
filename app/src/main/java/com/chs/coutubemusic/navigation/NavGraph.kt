@@ -3,6 +3,7 @@ package com.chs.coutubemusic.navigation
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -11,6 +12,7 @@ import androidx.navigation.compose.composable
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.view.*
 
+@ExperimentalMaterialApi
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SetUpNavGraph(

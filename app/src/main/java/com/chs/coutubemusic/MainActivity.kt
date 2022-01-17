@@ -42,10 +42,10 @@ import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 import com.chs.coutubemusic.view.MusicPlayerScreen
 import kotlinx.coroutines.launch
 
+@ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
 
-    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

@@ -4,6 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -43,89 +44,35 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black)
-        ) {
-            TopCategory(navController)
+            ) {
+            TopCategory()
             VerticalAlbum(navController)
         }
     }
 }
 
 @Composable
-fun TopCategory(
-    navController: NavController
-) {
-    Row {
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .padding(8.dp)
-                .clip(CircleShape),
-            colors = ButtonDefaults.buttonColors(backgroundColor = ChipDisableColor)
-        ) {
-            Text(
-                text = "운동",
-                color = Color.White
-            )
-        }
-
-        Button(
-            onClick = {
-
-            },
-            modifier = Modifier
-                .padding(
-                    start = 4.dp,
-                    end = 4.dp,
-                    top = 8.dp,
-                    bottom = 8.dp
+fun TopCategory() {
+    val categoryList: List<String> = listOf(
+        "운동",
+        "집중",
+        "휴식",
+        "출퇴근 & 등하교"
+    )
+    LazyRow {
+        items(categoryList) { idx ->
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clip(CircleShape),
+                colors = ButtonDefaults.buttonColors(backgroundColor = ChipDisableColor)
+            ) {
+                Text(
+                    text = idx,
+                    color = Color.White
                 )
-                .clip(CircleShape),
-            colors = ButtonDefaults.buttonColors(backgroundColor = ChipDisableColor)
-        ) {
-            Text(
-                text = "집중",
-                color = Color.White
-            )
-        }
-
-        Button(
-            onClick = {
-
-            },
-            modifier = Modifier
-                .padding(
-                    start = 4.dp,
-                    end = 4.dp,
-                    top = 8.dp,
-                    bottom = 8.dp
-                )
-                .clip(CircleShape),
-            colors = ButtonDefaults.buttonColors(backgroundColor = ChipDisableColor)
-        ) {
-            Text(
-                text = "휴식",
-                color = Color.White
-            )
-        }
-
-        Button(
-            onClick = {
-
-            },
-            modifier = Modifier
-                .padding(
-                    start = 4.dp,
-                    end = 4.dp,
-                    top = 8.dp,
-                    bottom = 8.dp
-                )
-                .clip(CircleShape),
-            colors = ButtonDefaults.buttonColors(backgroundColor = ChipDisableColor)
-        ) {
-            Text(
-                text = "출퇴근 & 등하교",
-                color = Color.White
-            )
+            }
         }
     }
 }
