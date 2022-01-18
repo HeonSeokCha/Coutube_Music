@@ -49,9 +49,25 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
+            val scope = rememberCoroutineScope()
+            val scaffoldState = rememberBottomSheetScaffoldState(
+                bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
+            )
+
+            val sheetToggle: () -> Unit = {
+                scope.launch {
+                    if (scaffoldState.bottomSheetState.isCollapsed) {
+                        scaffoldState.bottomSheetState.expand()
+                    } else {
+                        scaffoldState.bottomSheetState.collapse()
+                    }
+                }
+            }
+
             CoutubeMusicTheme {
                 navController = rememberNavController()
-                Scaffold(
+                BottomBarScaffold(
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(
@@ -81,6 +97,24 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         )
+                    },
+                    drawerModifier = Modifier,
+                    drawerGesturesEnabled = true,
+                    drawerPeekHeight = 125.dp,
+                    drawerElevation = 0.dp,
+                    drawerContent = {
+                        SheetContent {
+                            SheetExpanded {
+                                MusicPlayerScreen(navController = navController)
+                            }
+                            SheetCollapsed(
+                                isCollapsed = scaffoldState.bottomSheetState.isCollapsed,
+                                currentFraction = scaffoldState.currentFraction,
+                                onSheetClick = sheetToggle
+                            ) {
+                                MusicPlayerScreenSmall()
+                            }
+                        }
                     },
                     content = {
                         SetUpNavGraph(bottomNavController = navController, paddingValues = it)
@@ -158,53 +192,6 @@ fun BottomNavigationBar(
             )
         }
     }
-}
-
-@ExperimentalMaterialApi
-@Composable
-fun BottomSheet(
-    navController: NavHostController,
-    content: @Composable () -> Unit
-) {
-    val scope = rememberCoroutineScope()
-    val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
-    )
-
-    val sheetToggle: () -> Unit = {
-        scope.launch {
-            if (scaffoldState.bottomSheetState.isCollapsed) {
-                scaffoldState.bottomSheetState.expand()
-            } else {
-                scaffoldState.bottomSheetState.collapse()
-            }
-        }
-    }
-
-    BottomSheetScaffold(
-        topBar = { Appbar() },
-        modifier = Modifier
-            .fillMaxSize(),
-        scaffoldState = scaffoldState,
-        sheetContent = {
-            SheetContent {
-                SheetExpanded {
-                    MusicPlayerScreen(navController = navController)
-                }
-                SheetCollapsed(
-                    isCollapsed = scaffoldState.bottomSheetState.isCollapsed,
-                    currentFraction = scaffoldState.currentFraction,
-                    onSheetClick = sheetToggle
-                ) {
-                    MusicPlayerScreenSmall()
-                }
-            }
-        },
-        sheetPeekHeight = 70.dp,
-        content = {
-            content()
-        }
-    )
 }
 
 @ExperimentalMaterialApi
