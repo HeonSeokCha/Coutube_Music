@@ -31,46 +31,33 @@ fun MoodGenreScreen(navController: NavHostController) {
         "2000년대",
         "집중할 떄",
     )
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {},
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 8.dp,
+                top = 8.dp
             )
-        }
     ) {
-        Column(
+        Text(
+            text = "분위기\n및 장르",
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black)
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 8.dp,
-                    top = 8.dp
-                )
-        ) {
-            Text(
-                text = "분위기\n및 장르",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 24.dp),
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 32.sp
-            )
-            GenreMoodList("맞춤",genreList1, navController)
-            Spacer(modifier = Modifier.padding(bottom = 16.dp))
-            GenreMoodList("분위기 및 상황",genreList1, navController)
-            Spacer(modifier = Modifier.padding(bottom = 16.dp))
-            GenreMoodList("장르",genreList1, navController)
-            Spacer(modifier = Modifier.padding(bottom = 16.dp))
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 32.sp
+        )
+        GenreMoodList("맞춤",genreList1, navController)
+        Spacer(modifier = Modifier.padding(bottom = 16.dp))
+        GenreMoodList("분위기 및 상황",genreList1, navController)
+        Spacer(modifier = Modifier.padding(bottom = 16.dp))
+        GenreMoodList("장르",genreList1, navController)
+        Spacer(modifier = Modifier.padding(bottom = 16.dp))
 
-        }
     }
 }
 

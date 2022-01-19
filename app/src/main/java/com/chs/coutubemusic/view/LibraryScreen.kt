@@ -31,26 +31,21 @@ fun LibraryScreen(navController: NavHostController) {
         "구독" to painterResource(id = R.drawable.ic_subscriptions)
     )
 
-    Scaffold(
-        topBar = {
-            Appbar()
-        }) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black)
-        ) {
-            LazyColumn {
-                item {
-                    HorizontalAlbum(
-                        navController = navController,
-                        title = "최근 활동"
-                    )
-                }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+    ) {
+        LazyColumn {
+            item {
+                HorizontalAlbum(
+                    navController = navController,
+                    title = "최근 활동"
+                )
+            }
 
-                items(count = 6) { idx ->
-                    ExploreTopItem(exploreTopItems[idx],navController)
-                }
+            items(count = 6) { idx ->
+                ExploreTopItem(exploreTopItems[idx],navController)
             }
         }
     }

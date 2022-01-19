@@ -30,27 +30,7 @@ import com.chs.coutubemusic.Screen
 @ExperimentalFoundationApi
 @Composable
 fun NewAlbumSingleScreen(navController: NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "앨범 및 싱글",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
-            )
-        },
-    ) {
-        NewAlbumSingleList(navController)
-    }
+    NewAlbumSingleList(navController)
 }
 
 @ExperimentalFoundationApi

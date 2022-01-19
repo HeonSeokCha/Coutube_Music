@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.chs.coutubemusic.Appbar
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.Screen
 import com.chs.coutubemusic.ui.theme.ChipDisableColor
@@ -37,8 +38,14 @@ fun HomeScreen(
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        TopCategory()
-        VerticalAlbum(navController)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        ) {
+            TopCategory()
+            VerticalAlbum(navController)
+        }
     }
 }
 

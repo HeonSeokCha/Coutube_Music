@@ -44,35 +44,30 @@ fun ExploreScreen(navController: NavHostController) {
         "차트" to painterResource(id = R.drawable.ic_chart),
         "분위기 및 장르" to painterResource(id = R.drawable.ic_feel),
     )
-    Scaffold(
-        topBar = {
-            Appbar()
-        }) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black)
-        ) {
-            LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
-                items(3) { idx ->
-                    ExploreTopItem(exploreTopItems[idx], navController)
-                }
-                item {
-                    Spacer(modifier = Modifier.padding(bottom = 16.dp))
-                    NewAlbumSingle(title = "새 앨범 및 싱글", navController = navController)
-                }
-                item {
-                    PopularSongs(navController, "인기곡")
-                }
-                item {
-                    MoodGenreList(navController)
-                }
-                item {
-                    PopularSongs(navController, "인기")
-                }
-                item {
-                    NewMusicVideo(navController)
-                }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+    ) {
+        LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
+            items(3) { idx ->
+                ExploreTopItem(exploreTopItems[idx], navController)
+            }
+            item {
+                Spacer(modifier = Modifier.padding(bottom = 16.dp))
+                NewAlbumSingle(title = "새 앨범 및 싱글", navController = navController)
+            }
+            item {
+                PopularSongs(navController, "인기곡")
+            }
+//            item {
+//                MoodGenreList(navController)
+//            }
+            item {
+                PopularSongs(navController, "인기")
+            }
+            item {
+                NewMusicVideo(navController)
             }
         }
     }

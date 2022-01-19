@@ -15,10 +15,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.twotone.PlayArrow
 import androidx.compose.material.icons.twotone.Search
 import androidx.compose.material.icons.twotone.Share
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -51,6 +49,7 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val scope = rememberCoroutineScope()
+            val (canPop, setCanPop) = remember { mutableStateOf(false) }
             val scaffoldState = rememberBottomSheetScaffoldState(
                 bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
             )
@@ -65,9 +64,15 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
+            navController = rememberNavController()
+            navController.addOnDestinationChangedListener { controller, _, _ ->
+                setCanPop(controller.previousBackStackEntry != null)
+            }
             CoutubeMusicTheme {
-                navController = rememberNavController()
                 BottomBarScaffold(
+                    topBar = {
+                         Appbar(canPop, navController)
+                    },
                     bottomBar = {
                         BottomNavigationBar(
                             items = listOf(
@@ -91,8 +96,12 @@ class MainActivity : ComponentActivity() {
                             onItemClick = {
                                 if (it.route != navController.currentDestination?.route) {
                                     navController.navigate(it.route) {
-                                        popUpTo(0)
-                                        launchSingleTop = true
+                                        if (scaffoldState.bottomSheetState.isExpanded) {
+                                            scaffoldState.bottomSheetState.isCollapsed
+                                        } else {
+                                            popUpTo(0)
+                                            launchSingleTop = true
+                                        }
                                     }
                                 }
                             }
@@ -126,34 +135,48 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Appbar() {
+fun Appbar(
+    canPop: Boolean,
+    navController: NavHostController
+) {
     Column {
-        TopAppBar(
-            title = {
-                Icon(imageVector = Icons.TwoTone.PlayArrow, contentDescription = null)
-                Text(text = "Music")
-            },
-            actions = {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.TwoTone.Share, contentDescription = null)
+        if (canPop) {
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.Filled.ArrowBack, null)
+                    }
                 }
+            )
+        } else {
+            TopAppBar(
+                title = {
+                    Icon(imageVector = Icons.TwoTone.PlayArrow, contentDescription = null)
+                    Text(text = "Music")
+                },
+                actions = {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(imageVector = Icons.TwoTone.Share, contentDescription = null)
+                    }
 
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.TwoTone.Search, contentDescription = null)
-                }
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(imageVector = Icons.TwoTone.Search, contentDescription = null)
+                    }
 
-                IconButton(onClick = { /*TODO*/ }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.test),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .clip(CircleShape),
-                        contentScale = ContentScale.Crop
-                    )
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Image(
+                            painter = painterResource(id = R.drawable.test),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clip(CircleShape),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
 
@@ -195,15 +218,16 @@ fun BottomNavigationBar(
 }
 
 @ExperimentalMaterialApi
-val BottomSheetScaffoldState.currentFraction: Float get() {
-    val fraction = bottomSheetState.progress.fraction
-    val targetValue = bottomSheetState.targetValue
-    val currentValue = bottomSheetState.currentValue
+val BottomSheetScaffoldState.currentFraction: Float
+    get() {
+        val fraction = bottomSheetState.progress.fraction
+        val targetValue = bottomSheetState.targetValue
+        val currentValue = bottomSheetState.currentValue
 
-    return when {
-        currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Collapsed -> 0f
-        currentValue == BottomSheetValue.Expanded && targetValue == BottomSheetValue.Expanded -> 1f
-        currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Expanded -> fraction
-        else -> 1f - fraction
+        return when {
+            currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Collapsed -> 0f
+            currentValue == BottomSheetValue.Expanded && targetValue == BottomSheetValue.Expanded -> 1f
+            currentValue == BottomSheetValue.Collapsed && targetValue == BottomSheetValue.Expanded -> fraction
+            else -> 1f - fraction
+        }
     }
-}

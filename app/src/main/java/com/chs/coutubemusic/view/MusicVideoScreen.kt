@@ -16,40 +16,21 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun MusicVideoScreen(navController : NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "뮤직 비디오",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
+    LazyColumn(modifier = Modifier
+        .fillMaxSize()
+        .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        items(10) {
+            ItemMusicVideo(
+                navController,
+                Modifier
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp)
+                    .fillMaxWidth()
+                    .wrapContentHeight()
             )
-        }) {
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            items(10) {
-                ItemMusicVideo(
-                    navController,
-                    Modifier
-                        .padding(
-                            start = 16.dp,
-                            end = 16.dp)
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                )
-            }
         }
     }
 }

@@ -19,46 +19,32 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun NewAlbumScreen(navController: NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {},
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 8.dp,
+                top = 8.dp
             )
-        }
     ) {
-        Column(
+        Text(
+            text = "새\n앨범",
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black)
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 8.dp,
-                    top = 8.dp
-                )
-        ) {
-            Text(
-                text = "새\n앨범",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 24.dp),
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 36.sp
-            )
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 36.sp
+        )
 
-            LazyRow {
-                items(2) {
-                    ItemAlbumCard(navController)
-                }
+        LazyRow {
+            items(2) {
+                ItemAlbumCard(navController)
             }
-            NewAlbumSingle(title = "새 앨범 및 싱글", navController = navController)
-
         }
+        NewAlbumSingle(title = "새 앨범 및 싱글", navController = navController)
     }
 }

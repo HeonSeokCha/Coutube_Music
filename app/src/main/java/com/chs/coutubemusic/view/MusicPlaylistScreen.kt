@@ -39,32 +39,19 @@ fun MusicPlaylistScreen(navController: NavHostController) {
         "차현석",
         "18:38"
     )
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {},
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        item {
+            PlayListInfo(
+                title = "Lofi_HipHop",
+                author = "차현석",
+                listSize = "59"
             )
         }
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            item {
-                PlayListInfo(
-                    title = "Lofi_HipHop",
-                    author = "차현석",
-                    listSize = "59"
-                )
-            }
-            items(count = 30) {
-                MusicListItem(music = music, navController = navController)
-            }
+        items(count = 30) {
+            MusicListItem(music = music, navController = navController)
         }
     }
 }
