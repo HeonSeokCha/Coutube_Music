@@ -1,13 +1,11 @@
 package com.chs.coutubemusic
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -24,13 +22,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -50,16 +44,17 @@ class MainActivity : ComponentActivity() {
 
             val scope = rememberCoroutineScope()
             val (canPop, setCanPop) = remember { mutableStateOf(false) }
-            val scaffoldState = rememberBottomSheetScaffoldState(
-                bottomSheetState = rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
+
+            val scaffoldState = rememberBottomDrawerScaffoldState(
+              bottomDrawerState   = rememberBottomDrawerState(initialValue = BottomDrawerValue.Collapsed, drawerTopInset = 0)
             )
 
             val sheetToggle: () -> Unit = {
                 scope.launch {
-                    if (scaffoldState.bottomSheetState.isCollapsed) {
-                        scaffoldState.bottomSheetState.expand()
+                    if (scaffoldState.bottomDrawerState.isCollapsed) {
+                        scaffoldState.bottomDrawerState.expand()
                     } else {
-                        scaffoldState.bottomSheetState.collapse()
+                        scaffoldState.bottomDrawerState.collapse()
                     }
                 }
             }
@@ -96,8 +91,8 @@ class MainActivity : ComponentActivity() {
                             onItemClick = {
                                 if (it.route != navController.currentDestination?.route) {
                                     navController.navigate(it.route) {
-                                        if (scaffoldState.bottomSheetState.isExpanded) {
-                                            scaffoldState.bottomSheetState.isCollapsed
+                                        if (scaffoldState.bottomDrawerState.isCollapsed) {
+                                            scaffoldState.bottomDrawerState.isCollapsed
                                         } else {
                                             popUpTo(0)
                                             launchSingleTop = true
@@ -107,6 +102,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     },
+                    scaffoldState = scaffoldState,
                     drawerModifier = Modifier,
                     drawerGesturesEnabled = true,
                     drawerPeekHeight = 125.dp,
@@ -117,8 +113,8 @@ class MainActivity : ComponentActivity() {
                                 MusicPlayerScreen(navController = navController)
                             }
                             SheetCollapsed(
-                                isCollapsed = scaffoldState.bottomSheetState.isCollapsed,
-                                currentFraction = scaffoldState.currentFraction,
+                                isCollapsed = scaffoldState.bottomDrawerState.isCollapsed,
+                                currentFraction = 0f,
                                 onSheetClick = sheetToggle
                             ) {
                                 MusicPlayerScreenSmall()

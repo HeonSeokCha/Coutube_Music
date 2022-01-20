@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -23,10 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.chs.coutubemusic.Appbar
 import com.chs.coutubemusic.R
 import com.chs.coutubemusic.Screen
-import com.chs.coutubemusic.ui.theme.ChipDisableColor
+import com.chs.coutubemusic.item.Chip
 
 @ExperimentalMaterialApi
 @Composable
@@ -43,7 +42,6 @@ fun HomeScreen(
                 .fillMaxSize()
                 .background(Color.Black)
         ) {
-            TopCategory()
             VerticalAlbum(navController)
         }
     }
@@ -57,20 +55,11 @@ fun TopCategory() {
         "휴식",
         "출퇴근 & 등하교"
     )
-    LazyRow {
+    LazyRow(
+        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+        contentPadding = PaddingValues(8.dp) ){
         items(categoryList) { idx ->
-            Button(
-                onClick = {},
-                modifier = Modifier
-                    .padding(8.dp)
-                    .clip(CircleShape),
-                colors = ButtonDefaults.buttonColors(backgroundColor = ChipDisableColor)
-            ) {
-                Text(
-                    text = idx,
-                    color = Color.White
-                )
-            }
+            Chip(name = idx)
         }
     }
 }
@@ -173,6 +162,9 @@ fun VerticalAlbum(
             .fillMaxSize()
     ) {
         LazyColumn {
+            item {
+                TopCategory()
+            }
             items(count = 4) { itemIdx ->
                 HorizontalAlbum(
                     navController = navController,
