@@ -3,6 +3,7 @@ package com.chs.coutubemusic
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -91,12 +92,8 @@ class MainActivity : ComponentActivity() {
                             onItemClick = {
                                 if (it.route != navController.currentDestination?.route) {
                                     navController.navigate(it.route) {
-                                        if (scaffoldState.bottomDrawerState.isCollapsed) {
-                                            scaffoldState.bottomDrawerState.isCollapsed
-                                        } else {
-                                            popUpTo(0)
-                                            launchSingleTop = true
-                                        }
+                                        popUpTo(0)
+                                        launchSingleTop = true
                                     }
                                 }
                             }
@@ -117,7 +114,11 @@ class MainActivity : ComponentActivity() {
                                 currentFraction = 0f,
                                 onSheetClick = sheetToggle
                             ) {
-                                MusicPlayerScreenSmall()
+                                if (scaffoldState.bottomDrawerState.isExpanded) {
+                                    ExpandMusicPlayerScreen()
+                                } else {
+                                    CollapsedMusicPlayerScreen()
+                                }
                             }
                         }
                     },

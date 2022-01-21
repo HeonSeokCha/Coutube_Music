@@ -1,10 +1,12 @@
 package com.chs.coutubemusic
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -65,7 +67,7 @@ fun SheetCollapsed(
 }
 
 @Composable
-fun RowScope.MusicPlayerScreenSmall() {
+fun RowScope.CollapsedMusicPlayerScreen() {
     Image(painter = painterResource(id = R.drawable.test2), contentDescription = null)
     IconButton(
         onClick = {},
@@ -77,4 +79,10 @@ fun RowScope.MusicPlayerScreenSmall() {
     ) {
         Icon(painter = painterResource(id = R.drawable.ic_play_next), contentDescription = null)
     }
+}
+
+@Composable
+fun RowScope.ExpandMusicPlayerScreen() {
+    Image(painter = painterResource(id = R.drawable.ic_arrow_down_small), contentDescription = null)
+    Image(painter = painterResource(id = R.drawable.ic_music_player_option), contentDescription = null)
 }
