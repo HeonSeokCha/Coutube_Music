@@ -3,7 +3,7 @@ package com.chs.coutubemusic
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -15,12 +15,14 @@ import androidx.compose.material.icons.twotone.PlayArrow
 import androidx.compose.material.icons.twotone.Search
 import androidx.compose.material.icons.twotone.Share
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -50,6 +52,8 @@ class MainActivity : ComponentActivity() {
               bottomDrawerState   = rememberBottomDrawerState(initialValue = BottomDrawerValue.Collapsed, drawerTopInset = 0)
             )
 
+            val bottomVisibility by remember { mutableStateOf(true) }
+
             val sheetToggle: () -> Unit = {
                 scope.launch {
                     if (scaffoldState.bottomDrawerState.isCollapsed) {
@@ -70,34 +74,45 @@ class MainActivity : ComponentActivity() {
                          Appbar(canPop, navController)
                     },
                     bottomBar = {
-                        BottomNavigationBar(
-                            items = listOf(
-                                BottomNavItem(
-                                    name = "Home",
-                                    route = "home",
-                                    icon = Icons.Default.Home
-                                ),
-                                BottomNavItem(
-                                    name = "Explore",
-                                    route = "explore",
-                                    icon = ImageVector.vectorResource(id = R.drawable.ic_un_explore)
-                                ),
-                                BottomNavItem(
-                                    name = "Library",
-                                    route = "library",
-                                    icon = ImageVector.vectorResource(id = R.drawable.ic_un_library)
-                                )
+                        val destiny = LocalDensity.current
+                        AnimatedVisibility(
+                            visible = scaffoldState.bottomDrawerState.isCollapsed,
+                            enter = slideInVertically {
+                                with(destiny) { -40.dp.roundToPx() }
+                            } + expandVertically(
+                                expandFrom = Alignment.Bottom
                             ),
-                            navController = navController,
-                            onItemClick = {
-                                if (it.route != navController.currentDestination?.route) {
-                                    navController.navigate(it.route) {
-                                        popUpTo(0)
-                                        launchSingleTop = true
+                            exit = slideOutVertically() + shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut()
+                        ) {
+                            BottomNavigationBar(
+                                items = listOf(
+                                    BottomNavItem(
+                                        name = "Home",
+                                        route = "home",
+                                        icon = Icons.Default.Home
+                                    ),
+                                    BottomNavItem(
+                                        name = "Explore",
+                                        route = "explore",
+                                        icon = ImageVector.vectorResource(id = R.drawable.ic_un_explore)
+                                    ),
+                                    BottomNavItem(
+                                        name = "Library",
+                                        route = "library",
+                                        icon = ImageVector.vectorResource(id = R.drawable.ic_un_library)
+                                    )
+                                ),
+                                navController = navController,
+                                onItemClick = {
+                                    if (it.route != navController.currentDestination?.route) {
+                                        navController.navigate(it.route) {
+                                            popUpTo(0)
+                                            launchSingleTop = true
+                                        }
                                     }
                                 }
-                            }
-                        )
+                            )
+                        }
                     },
                     scaffoldState = scaffoldState,
                     drawerModifier = Modifier,
@@ -108,6 +123,7 @@ class MainActivity : ComponentActivity() {
                         SheetContent {
                             SheetExpanded {
                                 MusicPlayerScreen(navController = navController)
+
                             }
                             SheetCollapsed(
                                 isCollapsed = scaffoldState.bottomDrawerState.isCollapsed,
