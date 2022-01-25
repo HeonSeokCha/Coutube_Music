@@ -132,7 +132,7 @@ class MainActivity : ComponentActivity() {
                                 onSheetClick = sheetToggle
                             ) {
                                 Log.e("progress", scaffoldState.bottomDrawerState.progress.fraction.toString())
-                                if (scaffoldState.bottomDrawerState.isExpanded) {
+                                if (scaffoldState.currentFraction > 0.5f) {
                                     ExpandMusicPlayerScreen()
                                 } else {
                                     CollapsedMusicPlayerScreen()

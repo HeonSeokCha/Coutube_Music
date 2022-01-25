@@ -54,7 +54,11 @@ fun SheetCollapsed(
             .fillMaxWidth()
             .height(70.dp)
             .background(BottomBarColor)
-            .graphicsLayer(alpha = 1f - currentFraction)
+            .graphicsLayer(alpha = if (currentFraction > 0.5f) {
+                currentFraction
+            } else {
+                1f - (currentFraction * 2)
+            })
             .noRippleClickable(
                 onClick = onSheetClick,
                 enabled = isCollapsed
