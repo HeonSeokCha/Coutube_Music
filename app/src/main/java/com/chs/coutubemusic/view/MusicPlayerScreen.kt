@@ -35,9 +35,7 @@ fun MusicPlayerScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MusicPlayerImage()
-        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
         MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
-        Spacer(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
         MusicPlayerControl()
     }
 }
@@ -48,7 +46,12 @@ fun MusicPlayerImage() {
         Modifier
             .fillMaxWidth()
             .height(280.dp)
-            .padding(start = 32.dp, end = 32.dp)
+            .padding(
+                start = 32.dp,
+                end = 32.dp,
+                top = 8.dp,
+                bottom = 8.dp
+            )
             .clip(RoundedCornerShape(15f))
     ) {
         Image(
@@ -71,7 +74,12 @@ fun MusicPlayerTitle(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(start = 32.dp, end = 32.dp),
+            .padding(
+                start = 32.dp,
+                end = 32.dp,
+                top = 8.dp,
+                bottom = 8.dp
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row {
@@ -113,7 +121,12 @@ fun MusicPlayerControl() {
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(start = 32.dp, end = 32.dp)
+            .padding(
+                start = 32.dp,
+                end = 32.dp,
+                top = 8.dp,
+                bottom = 8.dp
+            )
     ) {
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(),

@@ -49,16 +49,19 @@ fun SheetCollapsed(
     onSheetClick: () -> Unit,
     content: @Composable RowScope.() -> Unit
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
             .background(BottomBarColor)
-            .graphicsLayer(alpha = if (currentFraction > 0.5f) {
-                currentFraction
-            } else {
-                1f - (currentFraction * 2)
-            })
+            .graphicsLayer(
+                alpha = if (currentFraction > 0.5f) {
+                    (currentFraction - 0.5f) * 2
+                } else {
+                    1f - (currentFraction * 2)
+                }
+            )
             .noRippleClickable(
                 onClick = onSheetClick,
                 enabled = isCollapsed
@@ -109,6 +112,10 @@ fun RowScope.CollapsedMusicPlayerScreen() {
 
 @Composable
 fun RowScope.ExpandMusicPlayerScreen() {
-    Image(painter = painterResource(id = R.drawable.ic_arrow_down_small), contentDescription = null)
-    Image(painter = painterResource(id = R.drawable.ic_music_player_option), contentDescription = null)
+    IconButton(onClick = {}) {
+        Icon(painter = painterResource(id = R.drawable.ic_arrow_down_small), contentDescription = null)
+    }
+    IconButton(onClick = {}) {
+        Icon(painter = painterResource(id = R.drawable.ic_music_player_option), contentDescription = null)
+    }
 }

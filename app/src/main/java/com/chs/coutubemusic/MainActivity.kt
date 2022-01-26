@@ -124,14 +124,12 @@ class MainActivity : ComponentActivity() {
                         SheetContent {
                             SheetExpanded {
                                 MusicPlayerScreen(navController = navController)
-
                             }
                             SheetCollapsed(
                                 isCollapsed = scaffoldState.bottomDrawerState.isCollapsed,
                                 currentFraction = scaffoldState.currentFraction,
                                 onSheetClick = sheetToggle
                             ) {
-                                Log.e("progress", scaffoldState.bottomDrawerState.progress.fraction.toString())
                                 if (scaffoldState.currentFraction > 0.5f) {
                                     ExpandMusicPlayerScreen()
                                 } else {
