@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -23,11 +24,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ExperimentalMotionApi
+import androidx.constraintlayout.compose.MotionLayout
+import androidx.constraintlayout.compose.MotionScene
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -42,6 +49,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
 
+    @OptIn(ExperimentalMotionApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -77,7 +85,7 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         val destiny = LocalDensity.current
                         AnimatedVisibility(
-                            visible = scaffoldState.bottomDrawerState.isCollapsed,
+                            visible = scaffoldState.currentFraction < 0.5f,
                             enter = slideInVertically {
                                 with(destiny) { -40.dp.roundToPx() }
                             } + expandVertically(
@@ -133,7 +141,7 @@ class MainActivity : ComponentActivity() {
                                 if (scaffoldState.currentFraction > 0.5f) {
                                     ExpandMusicPlayerScreen()
                                 } else {
-                                    CollapsedMusicPlayerScreen()
+                                    CollapsedMusicPlayerScreen(scaffoldState.currentFraction)
                                 }
                             }
                         }
