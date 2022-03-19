@@ -112,14 +112,12 @@ fun ItemAlbumCard(navController: NavHostController) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.test2),
-                contentDescription = null,
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
-                    .clip(RoundedCornerShape(15f)),
-                contentScale = ContentScale.FillHeight
+                    .clip(RoundedCornerShape(15f))
+                    .background(Color.DarkGray),
             )
 
             Text(
@@ -162,9 +160,6 @@ fun VerticalAlbum(
             .fillMaxSize()
     ) {
         LazyColumn {
-            item {
-                TopCategory()
-            }
             items(count = 4) { itemIdx ->
                 HorizontalAlbum(
                     navController = navController,

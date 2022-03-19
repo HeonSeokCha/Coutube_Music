@@ -63,6 +63,14 @@ class MainActivity : ComponentActivity() {
               )
             )
 
+            val context = LocalContext.current
+            val motionScene = remember {
+                context.resources
+                    .openRawResource(R.raw.motion_scene)
+                    .readBytes()
+                    .decodeToString()
+            }
+
             val sheetToggle: () -> Unit = {
                 scope.launch {
                     if (scaffoldState.bottomDrawerState.isCollapsed) {
@@ -83,45 +91,34 @@ class MainActivity : ComponentActivity() {
                          Appbar(canPop, navController)
                     },
                     bottomBar = {
-                        val destiny = LocalDensity.current
-                        AnimatedVisibility(
-                            visible = scaffoldState.currentFraction < 0.5f,
-                            enter = slideInVertically {
-                                with(destiny) { -40.dp.roundToPx() }
-                            } + expandVertically(
-                                expandFrom = Alignment.Bottom
-                            ),
-                            exit = slideOutVertically() + shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut()
-                        ) {
-                            BottomNavigationBar(
-                                items = listOf(
-                                    BottomNavItem(
-                                        name = "Home",
-                                        route = "home",
-                                        icon = Icons.Default.Home
-                                    ),
-                                    BottomNavItem(
-                                        name = "Explore",
-                                        route = "explore",
-                                        icon = ImageVector.vectorResource(id = R.drawable.ic_un_explore)
-                                    ),
-                                    BottomNavItem(
-                                        name = "Library",
-                                        route = "library",
-                                        icon = ImageVector.vectorResource(id = R.drawable.ic_un_library)
-                                    )
+                        BottomNavigationBar(
+                            items = listOf(
+                                BottomNavItem(
+                                    name = "Home",
+                                    route = "home",
+                                    icon = Icons.Default.Home
                                 ),
-                                navController = navController,
-                                onItemClick = {
-                                    if (it.route != navController.currentDestination?.route) {
-                                        navController.navigate(it.route) {
-                                            popUpTo(0)
-                                            launchSingleTop = true
-                                        }
+                                BottomNavItem(
+                                    name = "Explore",
+                                    route = "explore",
+                                    icon = ImageVector.vectorResource(id = R.drawable.ic_un_explore)
+                                ),
+                                BottomNavItem(
+                                    name = "Library",
+                                    route = "library",
+                                    icon = ImageVector.vectorResource(id = R.drawable.ic_un_library)
+                                )
+                            ),
+                            navController = navController,
+                            onItemClick = {
+                                if (it.route != navController.currentDestination?.route) {
+                                    navController.navigate(it.route) {
+                                        popUpTo(0)
+                                        launchSingleTop = true
                                     }
                                 }
-                            )
-                        }
+                            }
+                        )
                     },
                     scaffoldState = scaffoldState,
                     drawerModifier = Modifier,
@@ -129,21 +126,25 @@ class MainActivity : ComponentActivity() {
                     drawerPeekHeight = 125.dp,
                     drawerElevation = 0.dp,
                     drawerContent = {
-                        SheetContent {
-                            SheetExpanded {
-                                MusicPlayerScreen(navController = navController)
-                            }
-                            SheetCollapsed(
-                                isCollapsed = scaffoldState.bottomDrawerState.isCollapsed,
-                                currentFraction = scaffoldState.currentFraction,
-                                onSheetClick = sheetToggle
-                            ) {
-                                if (scaffoldState.currentFraction > 0.5f) {
-                                    ExpandMusicPlayerScreen()
-                                } else {
-                                    CollapsedMusicPlayerScreen(scaffoldState.currentFraction)
-                                }
-                            }
+                        MotionLayout(
+                            motionScene = MotionScene(content = motionScene),
+                            progress = scaffoldState.currentFraction,
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(Color.DarkGray)
+                                    .layoutId("box")
+                            )
+                            Image(
+                                modifier = Modifier
+                                    .padding(start = 8.dp)
+                                    .layoutId("music_pic"),
+                                painter = painterResource(id = R.drawable.test2),
+                                contentScale = ContentScale.Crop,
+                                contentDescription = null
+                            )
                         }
                     },
                     content = {

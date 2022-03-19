@@ -4,32 +4,32 @@
         music_pic: {
           width: 40,
           height: 40,
-          start: ['parent', 'start', 16],
-          bottom: ['parent', 'bottom', 16]
+          start: ['parent', 'start', 8],
+          top: ['parent', 'top', 16]
         },
       box: {
         width: 'spread',
         height: 'spread',
         start: ['parent', 'start'],
         end: ['parent', 'end'],
-        top: ['parent', 'top', -16],
+        top: ['parent', 'top'],
         bottom: ['parent', 'bottom'],
       }
     },
     end: {
       music_pic: {
-        width: 150,
-        height: 150,
-        start: ['parent', 'start'],
-        start: ['parent', 'end'],
-        bottom: ['parent', 'top', 16]
+        width: 300 ,
+        height: 300,
+        start: ['parent', 'start', 8],
+        end: ['parent', 'end', 8],
+        top: ['parent', 'top', 48],
       },
       box: {
         width: 'spread',
         height: 'spread',
         start: ['parent', 'start'],
         end: ['parent', 'end'],
-        top: ['parent', 'top', -16],
+        top: ['parent', 'top'],
         bottom: ['parent', 'bottom'],
       }
     }
