@@ -29,6 +29,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -131,12 +133,6 @@ class MainActivity : ComponentActivity() {
                             progress = scaffoldState.currentFraction,
                             modifier = Modifier.fillMaxSize()
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(Color.DarkGray)
-                                    .layoutId("box")
-                            )
                             Image(
                                 modifier = Modifier
                                     .padding(start = 8.dp)
@@ -145,6 +141,30 @@ class MainActivity : ComponentActivity() {
                                 contentScale = ContentScale.Crop,
                                 contentDescription = null
                             )
+                            Text(
+                                modifier = Modifier.layoutId("music_title"),
+                                text = "Runaway",
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                modifier = Modifier.layoutId("music_sub_title"),
+                                text = "Krewella",
+                                fontSize = 12.sp,
+                            )
+
+                            Image(
+                                modifier = Modifier.layoutId("music_play_btn"),
+                                painter = painterResource(id = R.drawable.ic_play),
+                                contentDescription = null
+                            )
+
+                            Image(
+                                modifier = Modifier.layoutId("music_next_btn"),
+                                painter = painterResource(id = R.drawable.ic_play_next),
+                                contentDescription = null
+                            )
+
                         }
                     },
                     content = {

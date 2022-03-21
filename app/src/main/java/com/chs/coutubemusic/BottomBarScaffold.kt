@@ -429,5 +429,5 @@ object BottomDrawerScaffoldDefaults {
         @Composable
         get() = MaterialTheme.colors.onSurface.copy(alpha = ScrimOpacity)
 
-    const val ScrimOpacity = 0.32f
+    const val ScrimOpacity = 0f
 }
