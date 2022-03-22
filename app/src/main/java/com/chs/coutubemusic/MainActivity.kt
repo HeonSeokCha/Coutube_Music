@@ -22,8 +22,10 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -138,32 +140,37 @@ class MainActivity : ComponentActivity() {
                                     .padding(start = 8.dp)
                                     .layoutId("music_pic"),
                                 painter = painterResource(id = R.drawable.test2),
-                                contentScale = ContentScale.Crop,
+                                contentScale = ContentScale.Inside,
                                 contentDescription = null
                             )
-                            Text(
-                                modifier = Modifier.layoutId("music_title"),
-                                text = "Runaway",
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
-                                modifier = Modifier.layoutId("music_sub_title"),
-                                text = "Krewella",
-                                fontSize = 12.sp,
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .layoutId("box"),
+                            ) {
+                                Column {
+                                    Text(
+                                        text = "Runaway",
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Text(
+                                        text = "Krewella",
+                                        fontSize = 12.sp,
+                                    )
+                                }
 
-                            Image(
-                                modifier = Modifier.layoutId("music_play_btn"),
-                                painter = painterResource(id = R.drawable.ic_play),
-                                contentDescription = null
-                            )
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_play),
+                                    contentDescription = null
+                                )
 
-                            Image(
-                                modifier = Modifier.layoutId("music_next_btn"),
-                                painter = painterResource(id = R.drawable.ic_play_next),
-                                contentDescription = null
-                            )
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_play_next),
+                                    contentDescription = null
+                                )
+                            }
+
 
                         }
                     },

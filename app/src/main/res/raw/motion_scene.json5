@@ -7,24 +7,10 @@
           start: ['parent', 'start'],
           top: ['parent', 'top', 8],
         },
-      music_title: {
+      box: {
         start: ['music_pic', 'end', 8],
-        top: ['music_pic', 'top', 8],
+        top: ['music_pic', 'top', 8]
       },
-      music_sub_title: {
-        start: ['music_pic', 'end', 8],
-        top: ['music_title', 'bottom']
-      },
-      music_play_btn: {
-        end: ['music_next_btn', 'start', 16],
-        top: ['music_pic', 'top'],
-        bottom: ['music_pic', 'bottom']
-      },
-      music_next_btn: {
-        end: ['parent', 'end', 8],
-        top: ['music_pic', 'top'],
-        bottom: ['music_pic', 'bottom']
-      }
     },
     end: {
       music_pic: {
@@ -34,6 +20,11 @@
         end: ['parent', 'end', 8],
         top: ['parent', 'top', 48],
         },
+        box: {
+          start: ['parent', 'start', 64],
+          top: ['parent', 'top', 8],
+          alpha: [0]
+        },
       }
   },
   Transitions: {
@@ -42,10 +33,10 @@
       to: 'end',
       pathMotionArc: 'startVertical',
       KeyFrames: {
-        keyAttrubutes: [
+        KeyAttributes: [
           {
             target: ['music_pic'],
-            frames: [0, 100],
+            frames: [0,100],
           }
         ]
       }
