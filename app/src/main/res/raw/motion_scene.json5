@@ -4,42 +4,41 @@
         music_pic: {
           width: 50,
           height: 50,
-          start: ['parent', 'start'],
+          start: ['parent', 'start', 8],
           top: ['parent', 'top', 8],
         },
       box: {
         start: ['music_pic', 'end', 8],
         top: ['music_pic', 'top', 8]
       },
+      btn_close: {
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['parent', 'top'],
+        visibility: 'gone',
+        alpha: '0.0'
+      }
     },
     end: {
       music_pic: {
         width: 300 ,
         height: 300,
-        start: ['parent', 'start', 8],
-        end: ['parent', 'end', 8],
-        top: ['parent', 'top', 48],
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['btn_close', 'bottom', 48],
         },
         box: {
           start: ['parent', 'start', 64],
           top: ['parent', 'top', 8],
-          alpha: [0]
+          visibility: 'gone',
+          alpha: '0.0'
         },
-      }
-  },
-  Transitions: {
-    default: {
-      from: 'start',
-      to: 'end',
-      pathMotionArc: 'startVertical',
-      KeyFrames: {
-        KeyAttributes: [
-          {
-            target: ['music_pic'],
-            frames: [0,100],
-          }
-        ]
-      }
+      btn_close: {
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['parent', 'top', 8],
+        visibility: 'visible'
+        }
     }
   }
 }

@@ -47,6 +47,7 @@ import com.chs.coutubemusic.navigation.SetUpNavGraph
 import com.chs.coutubemusic.ui.theme.BottomBarColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 import com.chs.coutubemusic.view.MusicPlayerScreen
+import com.chs.coutubemusic.view.testA
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -133,45 +134,17 @@ class MainActivity : ComponentActivity() {
                         MotionLayout(
                             motionScene = MotionScene(content = motionScene),
                             progress = scaffoldState.currentFraction,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .noRippleClickable(
+                                    onClick = sheetToggle,
+                                    enabled = scaffoldState.bottomDrawerState.isCollapsed
+                                )
                         ) {
-                            Image(
-                                modifier = Modifier
-                                    .padding(start = 8.dp)
-                                    .layoutId("music_pic"),
-                                painter = painterResource(id = R.drawable.test2),
-                                contentScale = ContentScale.Inside,
-                                contentDescription = null
+                            testA(
+                                closeClick = sheetToggle,
+                                enabled = scaffoldState.bottomDrawerState.isExpanded
                             )
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .layoutId("box"),
-                            ) {
-                                Column {
-                                    Text(
-                                        text = "Runaway",
-                                        fontSize = 13.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    Text(
-                                        text = "Krewella",
-                                        fontSize = 12.sp,
-                                    )
-                                }
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_play),
-                                    contentDescription = null
-                                )
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_play_next),
-                                    contentDescription = null
-                                )
-                            }
-
-
                         }
                     },
                     content = {
