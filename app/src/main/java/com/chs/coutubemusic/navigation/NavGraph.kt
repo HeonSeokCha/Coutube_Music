@@ -17,6 +17,7 @@ import com.chs.coutubemusic.view.*
 @Composable
 fun SetUpNavGraph(
     bottomNavController: NavHostController,
+    clickExpandPlayer: () -> Unit,
     paddingValues: PaddingValues
 ) {
     NavHost(
@@ -35,10 +36,7 @@ fun SetUpNavGraph(
             LibraryScreen(bottomNavController)
         }
         composable(Screen.MusicPlayerList.route) {
-            MusicPlaylistScreen(bottomNavController)
-        }
-        composable(Screen.MusicPlayerScreen.route) {
-            MusicPlayerScreen(bottomNavController)
+            MusicPlaylistScreen(clickExpandPlayer)
         }
         composable(Screen.NewAlbumSingleScreen.route) {
             NewAlbumSingleScreen(bottomNavController)

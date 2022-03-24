@@ -6,17 +6,16 @@
           height: 50,
           start: ['parent', 'start', 8],
           top: ['parent', 'top', 8],
-        },
+      },
       box: {
         start: ['music_pic', 'end', 8],
         top: ['music_pic', 'top', 8]
       },
-      btn_close: {
-        start: ['parent', 'start'],
-        end: ['parent', 'end'],
-        top: ['parent', 'top'],
+      layout_expand_top_bar: {
         visibility: 'gone',
-        alpha: '0.0'
+      },
+      layout_music_player: {
+        visibility: 'gone'
       }
     },
     end: {
@@ -27,18 +26,24 @@
         end: ['parent', 'end'],
         top: ['btn_close', 'bottom', 48],
         },
-        box: {
+      box: {
           start: ['parent', 'start', 64],
           top: ['parent', 'top', 8],
           visibility: 'gone',
-          alpha: '0.0'
-        },
-      btn_close: {
+      },
+      layout_expand_top_bar: {
         start: ['parent', 'start'],
         end: ['parent', 'end'],
         top: ['parent', 'top', 8],
         visibility: 'visible'
-        }
+      },
+      layout_music_player: {
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['music_pic', 'bottom'],
+        bottom: ['parent', 'bottom', 24],
+        visibility: 'visible'
+      }
     }
   }
 }

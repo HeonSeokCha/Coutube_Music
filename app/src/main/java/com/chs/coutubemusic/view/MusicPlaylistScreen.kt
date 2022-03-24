@@ -32,7 +32,9 @@ import com.chs.coutubemusic.model.Music
 import com.chs.coutubemusic.R
 
 @Composable
-fun MusicPlaylistScreen(navController: NavHostController) {
+fun MusicPlaylistScreen(
+    clickExpandPlayer: () -> Unit
+) {
     val music: Music = Music(
         "RAINING IN PARIS (Lofi HipHop)",
         "",
@@ -51,7 +53,7 @@ fun MusicPlaylistScreen(navController: NavHostController) {
             )
         }
         items(count = 30) {
-            MusicListItem(music = music, navController = navController)
+            MusicListItem(music = music, clickExpandPlayer)
         }
     }
 }
@@ -172,15 +174,16 @@ fun PlayListInfo(
 }
 
 @Composable
-fun MusicListItem(music: Music, navController: NavHostController) {
+fun MusicListItem(
+    music: Music,
+    clickExpandPlayer: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(top = 8.dp, bottom = 8.dp)
-            .clickable {
-                navController.navigate(route = Screen.MusicPlayerScreen.route)
-            }
+            .clickable { clickExpandPlayer() }
     ) {
         Image(
             painter = painterResource(id = R.drawable.test2),
@@ -211,11 +214,4 @@ fun MusicListItem(music: Music, navController: NavHostController) {
             )
         }
     }
-}
-
-
-@Preview
-@Composable
-fun PreviewMusicPlayerList() {
-    MusicPlaylistScreen(navController = rememberNavController())
 }

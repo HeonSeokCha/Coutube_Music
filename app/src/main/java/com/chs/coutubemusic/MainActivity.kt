@@ -46,7 +46,6 @@ import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.navigation.SetUpNavGraph
 import com.chs.coutubemusic.ui.theme.BottomBarColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
-import com.chs.coutubemusic.view.MusicPlayerScreen
 import com.chs.coutubemusic.view.testA
 import kotlinx.coroutines.launch
 
@@ -148,7 +147,11 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     content = {
-                        SetUpNavGraph(bottomNavController = navController, paddingValues = it)
+                        SetUpNavGraph(
+                            bottomNavController = navController,
+                            paddingValues = it,
+                            clickExpandPlayer = sheetToggle
+                        )
                     }
                 )
             }

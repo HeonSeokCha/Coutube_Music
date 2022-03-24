@@ -32,44 +32,6 @@ import com.chs.coutubemusic.ui.theme.ChipDisableColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
 
 @Composable
-fun MusicPlayerScreen(navController: NavHostController) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        MusicPlayerImage()
-        MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
-        MusicPlayerControl()
-    }
-}
-
-@Composable
-fun MusicPlayerImage() {
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .height(280.dp)
-            .padding(
-                start = 32.dp,
-                end = 32.dp,
-                top = 8.dp,
-                bottom = 8.dp
-            )
-            .clip(RoundedCornerShape(15f))
-    ) {
-        Image(
-            painterResource(
-                id = R.drawable.test2
-            ),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillHeight
-        )
-    }
-}
-
-@Composable
 fun MusicPlayerTitle(
     title: String,
     subTitle: String
@@ -79,11 +41,12 @@ fun MusicPlayerTitle(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(
-                start = 32.dp,
-                end = 32.dp,
+                start = 16.dp,
+                end = 16.dp,
                 top = 8.dp,
                 bottom = 8.dp
-            ),
+            )
+            .layoutId("layout_music_player"),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row {
@@ -111,110 +74,21 @@ fun MusicPlayerTitle(
         }
 
         Text(
+            modifier = Modifier
+                .padding(bottom = 8.dp),
             text = subTitle,
             fontSize = 14.sp,
             color = Color.LightGray
         )
-    }
-}
 
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun testA(
-    closeClick: () -> Unit,
-    enabled: Boolean,
-) {
-    CollapsedMusicPlayer()
-    ExpandMusicPlayerTopBar(closeClick, enabled)
-}
-
-@Composable
-fun CollapsedMusicPlayer() {
-    Image(
-        modifier = Modifier
-            .layoutId("music_pic"),
-        painter = painterResource(id = R.drawable.test2),
-        contentScale = ContentScale.Inside,
-        contentDescription = null
-    )
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .layoutId("box"),
-    ) {
-        Column {
-            Text(
-                text = "Runaway",
-                fontSize = 13.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = "Krewella",
-                fontSize = 12.sp,
-            )
-        }
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_play),
-            contentDescription = null
-        )
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_play_next),
-            contentDescription = null
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun ExpandMusicPlayerTopBar(
-    closeClick: ()-> Unit,
-    enabled: Boolean
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp)
-            .layoutId("btn_close"),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Image(
-            modifier = Modifier
-                .noRippleClickable {
-                    closeClick()
-                    Log.e("Click", enabled.toString())
-                },
-            painter = painterResource(id = R.drawable.ic_arrow_down_small),
-            contentDescription = null,
-        )
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_music_player_option),
-            contentDescription = null
-        )
-    }
-}
-
-
-@Composable
-fun MusicPlayerControl() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(
-                start = 32.dp,
-                end = 32.dp,
-                top = 8.dp,
-                bottom = 8.dp
-            )
-    ) {
         LinearProgressIndicator(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
             color = Color.LightGray,
             progress = 0f
         )
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -290,14 +164,87 @@ fun MusicPlayerControl() {
             }
         }
     }
-
 }
 
-
-@Preview(showSystemUi = true)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun PreviewScreen() {
-    CoutubeMusicTheme {
-        MusicPlayerScreen(rememberNavController())
+fun testA(
+    closeClick: () -> Unit,
+    enabled: Boolean,
+) {
+    CollapsedMusicPlayer()
+    ExpandMusicPlayerTopBar(closeClick, enabled)
+    MusicPlayerTitle(title = "ABC", subTitle = "HyeonSeok")
+}
+
+@Composable
+fun CollapsedMusicPlayer() {
+    Image(
+        modifier = Modifier
+            .layoutId("music_pic"),
+        painter = painterResource(id = R.drawable.test2),
+        contentScale = ContentScale.Inside,
+        contentDescription = null
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .layoutId("box"),
+    ) {
+        Column {
+            Text(
+                text = "Runaway",
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = "Krewella",
+                fontSize = 12.sp,
+            )
+        }
+
+        Image(
+            painter = painterResource(id = R.drawable.ic_play),
+            contentDescription = null
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.ic_play_next),
+            contentDescription = null
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun ExpandMusicPlayerTopBar(
+    closeClick: ()-> Unit,
+    enabled: Boolean
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                top = 16.dp,
+                start = 16.dp,
+                end = 16.dp
+            )
+            .layoutId("layout_expand_top_bar"),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Image(
+            modifier = Modifier
+                .noRippleClickable {
+                    closeClick()
+                    Log.e("Click", enabled.toString())
+                },
+            painter = painterResource(id = R.drawable.ic_arrow_down_small),
+            contentDescription = null,
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.ic_music_player_option),
+            contentDescription = null
+        )
     }
 }
