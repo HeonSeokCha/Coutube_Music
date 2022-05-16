@@ -16,6 +16,13 @@
       },
       layout_music_player: {
         visibility: 'gone'
+      },
+      layout_bottom_bar : {
+        width: 'parent',
+        height: 'spread',
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        bottom: ['parent', 'bottom']
       }
     },
     end: {
@@ -43,6 +50,9 @@
         top: ['music_pic', 'bottom'],
         bottom: ['parent', 'bottom', 24],
         visibility: 'visible'
+      },
+      layout_bottom_bar : {
+        visibility: 'gone'
       }
     }
   }

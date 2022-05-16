@@ -166,9 +166,8 @@ fun MusicPlayerTitle(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun testA(
+fun ExpandedMusicPlayer(
     closeClick: () -> Unit,
     enabled: Boolean,
 ) {
@@ -215,7 +214,6 @@ fun CollapsedMusicPlayer() {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ExpandMusicPlayerTopBar(
     closeClick: ()-> Unit,

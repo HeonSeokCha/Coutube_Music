@@ -1,10 +1,12 @@
 package com.chs.coutubemusic
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,23 +19,16 @@ import androidx.compose.material.icons.twotone.PlayArrow
 import androidx.compose.material.icons.twotone.Search
 import androidx.compose.material.icons.twotone.Share
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ExperimentalMotionApi
@@ -46,7 +41,7 @@ import androidx.navigation.compose.rememberNavController
 import com.chs.coutubemusic.navigation.SetUpNavGraph
 import com.chs.coutubemusic.ui.theme.BottomBarColor
 import com.chs.coutubemusic.ui.theme.CoutubeMusicTheme
-import com.chs.coutubemusic.view.testA
+import com.chs.coutubemusic.view.ExpandedMusicPlayer
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -57,14 +52,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             val scope = rememberCoroutineScope()
             val (canPop, setCanPop) = remember { mutableStateOf(false) }
             val scaffoldState = rememberBottomDrawerScaffoldState(
-              bottomDrawerState   = rememberBottomDrawerState(
-                  initialValue = BottomDrawerValue.Collapsed,
-                  drawerTopInset = 0
-              )
+                bottomDrawerState = rememberBottomDrawerState(
+                    initialValue = BottomDrawerValue.Collapsed,
+                    drawerTopInset = 0
+                )
             )
 
             val context = LocalContext.current
@@ -89,10 +83,11 @@ class MainActivity : ComponentActivity() {
             navController.addOnDestinationChangedListener { controller, _, _ ->
                 setCanPop(controller.previousBackStackEntry != null)
             }
+
             CoutubeMusicTheme {
                 BottomBarScaffold(
                     topBar = {
-                         Appbar(canPop, navController)
+                        Appbar(canPop, navController)
                     },
                     bottomBar = {
                         BottomNavigationBar(
@@ -121,7 +116,9 @@ class MainActivity : ComponentActivity() {
                                         launchSingleTop = true
                                     }
                                 }
-                            }
+                            },
+                            state = scaffoldState,
+                            scene = motionScene
                         )
                     },
                     scaffoldState = scaffoldState,
@@ -140,7 +137,7 @@ class MainActivity : ComponentActivity() {
                                     enabled = scaffoldState.bottomDrawerState.isCollapsed
                                 )
                         ) {
-                            testA(
+                            ExpandedMusicPlayer(
                                 closeClick = sheetToggle,
                                 enabled = scaffoldState.bottomDrawerState.isExpanded
                             )
@@ -205,39 +202,48 @@ fun Appbar(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMotionApi::class)
 @Composable
 fun BottomNavigationBar(
     items: List<BottomNavItem>,
     navController: NavController,
     modifier: Modifier = Modifier,
-    onItemClick: (BottomNavItem) -> Unit
+    onItemClick: (BottomNavItem) -> Unit,
+    state: BottomDrawerScaffoldState,
+    scene: String
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
-    BottomNavigation(
-        modifier = modifier,
-        backgroundColor = BottomBarColor,
-        elevation = 5.dp
+    MotionLayout(
+        motionScene = MotionScene(content = scene),
+        progress = state.currentFraction,
+        modifier = modifier.fillMaxWidth().height(56.dp)
     ) {
-        items.forEach { items ->
-            val selected = items.route == backStackEntry.value?.destination?.route
-            BottomNavigationItem(
-                selected = selected,
-                onClick = { onItemClick(items) },
-                selectedContentColor = Color.White,
-                unselectedContentColor = Color.White,
-                icon = {
-                    Column(horizontalAlignment = CenterHorizontally) {
-                        Icon(
-                            imageVector = items.icon,
-                            contentDescription = null
-                        )
-                        Text(
-                            text = items.name,
-                            fontSize = 10.sp
-                        )
+        BottomNavigation(
+            modifier = modifier.layoutId("layout_bottom_bar"),
+            backgroundColor = BottomBarColor,
+            elevation = 5.dp
+        ) {
+            items.forEach { items ->
+                val selected = items.route == backStackEntry.value?.destination?.route
+                BottomNavigationItem(
+                    selected = selected,
+                    onClick = { onItemClick(items) },
+                    selectedContentColor = Color.White,
+                    unselectedContentColor = Color.White,
+                    icon = {
+                        Column(horizontalAlignment = CenterHorizontally) {
+                            Icon(
+                                imageVector = items.icon,
+                                contentDescription = null
+                            )
+                            Text(
+                                text = items.name,
+                                fontSize = 10.sp
+                            )
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }
