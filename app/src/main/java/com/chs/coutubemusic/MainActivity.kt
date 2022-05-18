@@ -216,7 +216,9 @@ fun BottomNavigationBar(
     MotionLayout(
         motionScene = MotionScene(content = scene),
         progress = state.currentFraction,
-        modifier = modifier.fillMaxWidth().height(56.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
     ) {
         BottomNavigation(
             modifier = modifier.layoutId("layout_bottom_bar"),
@@ -227,7 +229,10 @@ fun BottomNavigationBar(
                 val selected = items.route == backStackEntry.value?.destination?.route
                 BottomNavigationItem(
                     selected = selected,
-                    onClick = { onItemClick(items) },
+                    onClick = {
+                        if (state.bottomDrawerState.isCollapsed)
+                            onItemClick(items)
+                    },
                     selectedContentColor = Color.White,
                     unselectedContentColor = Color.White,
                     icon = {

@@ -9,20 +9,31 @@
       },
       box: {
         start: ['music_pic', 'end', 8],
-        top: ['music_pic', 'top', 8]
+        top: ['music_pic', 'top', 8],
+        alpha: 1
       },
       layout_expand_top_bar: {
-        visibility: 'gone',
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['parent', 'top', 8],
+        alpha: 0,
+        visibility: 'invisible'
       },
       layout_music_player: {
-        visibility: 'gone'
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['music_pic', 'bottom'],
+        bottom: ['parent', 'bottom', 24],
+        alpha: 0,
+        visibility: 'invisible'
       },
       layout_bottom_bar : {
         width: 'parent',
-        height: 'spread',
+        height: 'wrap',
         start: ['parent', 'start'],
         end: ['parent', 'end'],
-        bottom: ['parent', 'bottom']
+        bottom: ['parent', 'bottom'],
+        alpha: 1,
       }
     },
     end: {
@@ -36,23 +47,30 @@
       box: {
           start: ['parent', 'start', 64],
           top: ['parent', 'top', 8],
-          visibility: 'gone',
+          alpha: 0,
+        visibility: 'invisible'
       },
       layout_expand_top_bar: {
         start: ['parent', 'start'],
         end: ['parent', 'end'],
         top: ['parent', 'top', 8],
-        visibility: 'visible'
+        alpha: 1
       },
       layout_music_player: {
         start: ['parent', 'start'],
         end: ['parent', 'end'],
         top: ['music_pic', 'bottom'],
         bottom: ['parent', 'bottom', 24],
-        visibility: 'visible'
+        alpha: 1
       },
       layout_bottom_bar : {
-        visibility: 'gone'
+        width: 'parent',
+        height: 'wrap',
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        bottom: ['parent', 'bottom'],
+        alpha: 0,
+        visibility: 'invisible'
       }
     }
   }
