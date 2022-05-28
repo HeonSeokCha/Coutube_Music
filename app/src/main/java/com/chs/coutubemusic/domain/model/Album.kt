@@ -1,4 +1,4 @@
-package com.chs.coutubemusic.model
+package com.chs.coutubemusic.domain.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

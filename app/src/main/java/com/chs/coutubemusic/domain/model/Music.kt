@@ -1,4 +1,4 @@
-package com.chs.coutubemusic.model
+package com.chs.coutubemusic.domain.model
 
 data class Music(
     val title: String,
