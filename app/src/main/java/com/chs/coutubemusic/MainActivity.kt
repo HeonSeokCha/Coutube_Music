@@ -1,6 +1,7 @@
 package com.chs.coutubemusic
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -132,6 +133,7 @@ class MainActivity : ComponentActivity() {
                             progress = scaffoldState.currentFraction,
                             modifier = Modifier
                                 .fillMaxSize()
+                                .background(BottomBarColor)
                                 .noRippleClickable(
                                     onClick = sheetToggle,
                                     enabled = scaffoldState.bottomDrawerState.isCollapsed
@@ -161,17 +163,8 @@ fun Appbar(
     canPop: Boolean,
     navController: NavHostController
 ) {
-    Column {
-        if (canPop) {
-            TopAppBar(
-                title = {},
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
-                    }
-                }
-            )
-        } else {
+    when(navController.currentDestination?.route) {
+        Screen.Home.route, Screen.Explore.route, Screen.Library.route, null -> {
             TopAppBar(
                 title = {
                     Icon(imageVector = Icons.TwoTone.PlayArrow, contentDescription = null)
@@ -182,7 +175,7 @@ fun Appbar(
                         Icon(imageVector = Icons.TwoTone.Share, contentDescription = null)
                     }
 
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { navController.navigate(Screen.SearchScreen.route )}) {
                         Icon(imageVector = Icons.TwoTone.Search, contentDescription = null)
                     }
 
@@ -195,6 +188,19 @@ fun Appbar(
                                 .clip(CircleShape),
                             contentScale = ContentScale.Crop
                         )
+                    }
+                }
+            )
+        }
+        Screen.SearchScreen.route -> {
+
+        }
+        else -> {
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )

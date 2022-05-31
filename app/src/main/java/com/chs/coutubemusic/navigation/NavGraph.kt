@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.chs.coutubemusic.Screen
+import com.chs.coutubemusic.presentaition.search.SearchScreen
 import com.chs.coutubemusic.view.*
 
 @ExperimentalMaterialApi
@@ -49,6 +50,9 @@ fun SetUpNavGraph(
         }
         composable(Screen.NewAlbumScreen.route) {
             NewAlbumScreen(bottomNavController)
+        }
+        composable(Screen.SearchScreen.route) {
+            SearchScreen()
         }
     }
 }

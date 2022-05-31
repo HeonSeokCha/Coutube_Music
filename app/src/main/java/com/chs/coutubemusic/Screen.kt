@@ -12,4 +12,5 @@ sealed class Screen(val route: String) {
     object MoodGenreScreen: Screen(route = "moodGenreScreen")
     object MusicVideoScreen: Screen(route = "musicVideoScreen")
     object NewAlbumScreen: Screen(route = "newAlbumScreen")
+    object SearchScreen: Screen(route = "searchScreen")
 }
